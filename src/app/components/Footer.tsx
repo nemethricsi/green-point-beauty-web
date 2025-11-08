@@ -8,7 +8,7 @@ import { Container } from '@/app/components/Container';
 export const Footer = () => {
   return (
     <footer className="border-fuego-200 bg-fuego-900 mt-auto border-t px-4 backdrop-blur-sm">
-      <Container className="text-fuego-100 flex flex-col items-center justify-between gap-2.5 py-5 text-sm lg:flex-row-reverse lg:items-center lg:justify-between">
+      <Container className="text-fuego-100 flex flex-col items-center justify-between gap-2.5 py-3 text-sm lg:flex-row-reverse lg:items-center lg:justify-between">
         <div className="flex items-center gap-6 lg:gap-4">
           <SocialLink
             href="https://www.facebook.com/GreenPointBeauty"
