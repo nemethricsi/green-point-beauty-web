@@ -1,26 +1,58 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black: #2e2e2e;
+  --white: #fefefe;
+
+  --fuego-50: #fafce9;
+  --fuego-100: #f4f8cf;
+  --fuego-200: #e8f1a5;
+  --fuego-300: #d5e571;
+  --fuego-400: #c2d84c;
+  --fuego-500: #a2bc26;
+  --fuego-600: #7e961a;
+  --fuego-700: #607219;
+  --fuego-800: #4d5b19;
+  --fuego-900: #414d1a;
+  --fuego-950: #212a09;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-black: #2e2e2e;
+  --color-white: #fefefe;
+
+  --color-fuego-50: #fafce9;
+  --color-fuego-100: #f4f8cf;
+  --color-fuego-200: #e8f1a5;
+  --color-fuego-300: #d5e571;
+  --color-fuego-400: #c2d84c;
+  --color-fuego-500: #a2bc26;
+  --color-fuego-600: #7e961a;
+  --color-fuego-700: #607219;
+  --color-fuego-800: #4d5b19;
+  --color-fuego-900: #414d1a;
+  --color-fuego-950: #212a09;
+
+  --font-sans: var(--font-inter-sans);
+  --font-serif: var(--font-bricolage-grotesque-serif);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    var(--font-inter-sans),
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    segoe ui,
+    helvetica neue,
+    Adwaita Sans,
+    Cantarell,
+    Ubuntu,
+    roboto,
+    noto,
+    helvetica,
+    arial,
+    sans-serif;
 }
