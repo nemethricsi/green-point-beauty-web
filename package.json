@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:schema:dev": "npx sanity schema deploy --dataset development",
+    "deploy:schema:prod": "npx sanity schema deploy --dataset production"
   },
   "dependencies": {
     "@sanity/client": "^7.12.1",
