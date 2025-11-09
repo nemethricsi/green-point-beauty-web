@@ -11,6 +11,7 @@
     "deploy:schema:prod": "npx sanity schema deploy --dataset production"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@sanity/client": "^7.12.1",
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^1.2.0",
