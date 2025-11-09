@@ -10,8 +10,10 @@ import { structureTool } from 'sanity/structure';
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from '@/sanity/env';
-import { schema } from '@/sanity/schemaTypes';
+import { schema, singletonTypes } from '@/sanity/schemaTypes';
 import { structure } from '@/sanity/structure';
+
+const singletonActions = new Set(['publish', 'discardChanges', 'restore']);
 
 export default defineConfig({
   basePath: '/admin',
@@ -25,4 +27,12 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],
+  document: {
+    newDocumentOptions: (prev) =>
+      prev.filter((item) => item.templateId !== 'homePage'),
+    actions: (input, context) =>
+      singletonTypes.has(context.schemaType)
+        ? input.filter(({ action }) => action && singletonActions.has(action))
+        : input,
+  },
 });
