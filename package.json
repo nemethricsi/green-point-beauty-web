@@ -7,6 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "typegen": "sanity schema extract && sanity typegen generate --enforce-required-fields",
     "deploy:schema:dev": "npx sanity schema deploy --dataset development",
     "deploy:schema:prod": "npx sanity schema deploy --dataset production"
   },
