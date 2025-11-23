@@ -7,6 +7,7 @@ import { BackgroundShapes } from '@/app/components/BackgroundShapes';
 import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
+import { components } from '@/app/components/PortableTextComponents';
 import { fetchTreatmentBySlug } from '@/sanity/lib/queries';
 
 export default async function KezelesPage({
@@ -40,7 +41,7 @@ export default async function KezelesPage({
             <div className="flex flex-col gap-6 lg:gap-10">
               <Link
                 href="/"
-                className="text-fuego-900 bg-fuego-100 hover:bg-fuego-200 flex items-center gap-2 rounded-md p-2 text-lg md:self-start"
+                className="text-fuego-900 flex items-center gap-2 rounded-md p-2 font-semibold hover:bg-neutral-200/50 md:self-start"
               >
                 <ArrowLeftIcon className="h-6 w-6" />
                 <span>Vissza</span>
@@ -62,7 +63,7 @@ export default async function KezelesPage({
                 </Link>
               </div>
               <div className="prose lg:prose-lg">
-                <PortableText value={details} />
+                <PortableText value={details} components={components} />
               </div>
             </div>
           </div>

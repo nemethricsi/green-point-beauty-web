@@ -31,7 +31,21 @@ export const fetchHomePage = async (): Promise<HomePageData> => {
   return parsed.data; // Type-safe, validated data
 };
 
-export const TREATMENTS_QUERY = defineQuery(`*[
+const TREATMENTS_QUERY = defineQuery(`*[
+  _type == 'treatment'
+]{
+  "id":_id,
+  name,
+  "slug":slug.current,
+  shortDescription,
+  salonicUrl,
+}`);
+
+export const fetchTreatments = async () => {
+  return sanityFetch({ query: TREATMENTS_QUERY });
+};
+
+const SINGLE_TREATMENT_QUERY = defineQuery(`*[
   _type == 'treatment' &&
   slug.current == $slug
 ][0]{
@@ -43,5 +57,5 @@ export const TREATMENTS_QUERY = defineQuery(`*[
 }`);
 
 export const fetchTreatmentBySlug = async (slug: string) => {
-  return sanityFetch({ query: TREATMENTS_QUERY, params: { slug } });
+  return sanityFetch({ query: SINGLE_TREATMENT_QUERY, params: { slug } });
 };
