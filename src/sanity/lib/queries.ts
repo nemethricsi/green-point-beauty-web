@@ -22,17 +22,6 @@ export const fetchHomePage = async (): Promise<HomePageData> => {
     query: HOME_PAGE_QUERY,
   });
 
-  // Handle null/undefined case during build when data does not exist yet
-  if (!result.data) {
-    // Return default values so build can succeed
-    // Once deployed, you can add the actual data in Sanity Studio
-    return {
-      headline: 'Welcome',
-      subheading: 'Content coming soon',
-      ctaLabel: 'Coming soon',
-    };
-  }
-
   const parsed = HomePageDataSchema.safeParse(result.data);
 
   if (!parsed.success) {
@@ -42,16 +31,17 @@ export const fetchHomePage = async (): Promise<HomePageData> => {
   return parsed.data; // Type-safe, validated data
 };
 
-export const AUTHOR_QUERY =
-  defineQuery(`*[_type == 'author'] | order(lower(name) asc){
-  _id,
+export const TREATMENTS_QUERY = defineQuery(`*[
+  _type == 'treatment' &&
+  slug.current == $slug
+][0]{
+  "id":_id,
   name,
-  bio,
+  shortDescription,
+  salonicUrl,
+  details
 }`);
 
-export const fetchAuthors = async <T>(): Promise<T[]> => {
-  const result = await sanityFetch({
-    query: AUTHOR_QUERY,
-  });
-  return result.data as T[];
+export const fetchTreatmentBySlug = async (slug: string) => {
+  return sanityFetch({ query: TREATMENTS_QUERY, params: { slug } });
 };

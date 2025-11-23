@@ -7,6 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "typegen": "sanity schema extract && sanity typegen generate --enforce-required-fields",
     "deploy:schema:dev": "npx sanity schema deploy --dataset development",
     "deploy:schema:prod": "npx sanity schema deploy --dataset production"
   },
@@ -33,6 +34,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
