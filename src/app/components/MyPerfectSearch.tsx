@@ -44,8 +44,8 @@ const treatments: Treatment[] = [
   },
   {
     id: 3,
-    name: 'Dermarolleres testkezelések',
-    href: '/kezelesek/dermarolleres-testkezelesek',
+    name: 'Dermarolleres testkezelés',
+    href: '/kezelesek/dermarolleres-testkezeles',
     description:
       'A dermaroller kezelés egy olyan modern bőrfeszesítő eljárás, melynek során, a bőr...',
   },
