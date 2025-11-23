@@ -1,9 +1,7 @@
 'use client';
 
-// import { Command as CommandPrimitive } from 'cmdk';
-// import { SearchIcon } from 'lucide-react';
 import { CalendarDaysIcon, SearchIcon } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import {
@@ -20,51 +18,15 @@ import {
   PopoverTrigger,
 } from '@/app/components/Popover';
 
-type Treatment = {
-  id: number;
-  name: string;
-  description: string;
-  href: string;
+// eslint-disable-next-line no-restricted-imports
+import { TREATMENTS_QUERYResult } from '../../../sanity.types';
+
+type MyPerfectSearchProps = {
+  treatments: TREATMENTS_QUERYResult;
 };
 
-const treatments: Treatment[] = [
-  {
-    id: 1,
-    name: 'Kavitációs zsírbontás',
-    description:
-      'Ez a kezelés segít lebontani a zsírt az egész testen. Meg még arra is jó, hogy még egy sort írjak ide.',
-    href: '/kezelesek/kavitacios-zsirbontas',
-  },
-  {
-    id: 2,
-    name: 'IPL szőrtelenítés',
-    href: '/kezelesek/ipl-szortelenites',
-    description:
-      'Teljes szőrtelenítés, majdnem végleges. De ennek is inkább két sorosnak kell lennie.',
-  },
-  {
-    id: 3,
-    name: 'Dermarolleres testkezelés',
-    href: '/kezelesek/dermarolleres-testkezeles',
-    description:
-      'A dermaroller kezelés egy olyan modern bőrfeszesítő eljárás, melynek során, a bőr...',
-  },
-  {
-    id: 4,
-    name: 'Cellulit kezelés',
-    href: '/kezelesek/cellulit-kezeles',
-    description:
-      'A narancsbőr, vagy más néven cellulit a női szépség makacs ellensége.',
-  },
-  {
-    id: 5,
-    name: 'Foglalás',
-    href: '/foglalas',
-    description: 'Foglalás a kezelésre.',
-  },
-];
-
-export const MyPerfectSearch = () => {
+export const MyPerfectSearch = ({ treatments }: MyPerfectSearchProps) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
 
@@ -89,30 +51,72 @@ export const MyPerfectSearch = () => {
           <CommandList>
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
-              {treatments.map(({ id, name, href, description }) => (
-                <CommandItem
-                  key={id}
-                  value={name}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Link
-                    href={href}
-                    className="flex flex-1 items-center justify-between p-4"
-                  >
-                    <div className="flex flex-1 flex-col gap-2">
-                      <span className="text-fuego-950 font-medium">{name}</span>
-                      <p className="text-sm text-neutral-500">{description}</p>
-                    </div>
-                    <button className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-2 py-1 font-semibold transition-colors">
-                      <CalendarDaysIcon />
-                      <span>Foglalás</span>
-                    </button>
-                  </Link>
-                </CommandItem>
-              ))}
+              {treatments.map(
+                ({ id, name, salonicUrl, shortDescription, slug }) => {
+                  if (
+                    name == null ||
+                    salonicUrl == null ||
+                    shortDescription == null ||
+                    slug == null
+                  ) {
+                    return null;
+                  }
+
+                  const handleClick = () => {
+                    router.push(`/kezelesek/${slug}`);
+                  };
+
+                  const handleKeyDown = (
+                    e: React.KeyboardEvent<HTMLDivElement>,
+                  ) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleClick();
+                    }
+                  };
+
+                  return (
+                    <CommandItem
+                      key={id}
+                      value={name}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <div
+                        role="link"
+                        tabIndex={0}
+                        onKeyDown={handleKeyDown}
+                        onClick={handleClick}
+                        aria-label={`Kezelés: ${name}`}
+                        className="flex flex-1 cursor-pointer flex-col justify-between gap-6 p-4 lg:flex-row lg:items-center"
+                      >
+                        <div className="flex flex-1 flex-col gap-2">
+                          <span className="text-fuego-950 font-medium">
+                            {name}
+                          </span>
+                          <p className="text-sm text-neutral-500">
+                            {shortDescription}
+                          </p>
+                        </div>
+                        <a
+                          href={salonicUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-2 py-1 font-semibold transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent outer click handler
+                          }}
+                        >
+                          <CalendarDaysIcon />
+                          <span>Foglalás</span>
+                        </a>
+                      </div>
+                    </CommandItem>
+                  );
+                },
+              )}
             </CommandGroup>
           </CommandList>
         </Command>

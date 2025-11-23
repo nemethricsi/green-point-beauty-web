@@ -6,10 +6,11 @@ import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { MyPerfectSearch } from '@/app/components/MyPerfectSearch';
-import { fetchHomePage } from '@/sanity/lib/queries';
+import { fetchHomePage, fetchTreatments } from '@/sanity/lib/queries';
 
 export default async function Home() {
   const { headline, subheading, ctaLabel } = await fetchHomePage();
+  const { data: treatments } = await fetchTreatments();
 
   return (
     <>
@@ -19,7 +20,7 @@ export default async function Home() {
           <BackgroundShapes />
           <div className="mx-auto flex max-w-5xl flex-1 items-center justify-center">
             <div className="flex flex-col gap-12 lg:gap-20">
-              <MyPerfectSearch />
+              <MyPerfectSearch treatments={treatments} />
               <div className="flex flex-col gap-8 lg:flex-row">
                 <div className="flex flex-col gap-2">
                   <h1 className="text-fuego-900 font-serif text-4xl leading-tight font-bold lg:text-6xl">

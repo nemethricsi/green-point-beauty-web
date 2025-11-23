@@ -267,8 +267,17 @@ export type HOME_PAGE_QUERYResult = {
   ctaLabel: string | null;
 } | null;
 // Variable: TREATMENTS_QUERY
+// Query: *[  _type == 'treatment']{  "id":_id,  name,  "slug":slug.current,  shortDescription,  salonicUrl,}
+export type TREATMENTS_QUERYResult = Array<{
+  id: string;
+  name: string | null;
+  slug: string | null;
+  shortDescription: string | null;
+  salonicUrl: string | null;
+}>;
+// Variable: SINGLE_TREATMENT_QUERY
 // Query: *[  _type == 'treatment' &&  slug.current == $slug][0]{  "id":_id,  name,  shortDescription,  salonicUrl,  details}
-export type TREATMENTS_QUERYResult = {
+export type SINGLE_TREATMENT_QUERYResult = {
   id: string;
   name: string | null;
   shortDescription: string | null;
@@ -321,6 +330,7 @@ import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
-    '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  salonicUrl,\n  details\n}': TREATMENTS_QUERYResult;
+    '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  salonicUrl,\n}': TREATMENTS_QUERYResult;
+    '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  salonicUrl,\n  details\n}': SINGLE_TREATMENT_QUERYResult;
   }
 }
