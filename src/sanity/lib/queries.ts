@@ -21,11 +21,24 @@ export const fetchHomePage = async (): Promise<HomePageData> => {
   const result = await sanityFetch({
     query: HOME_PAGE_QUERY,
   });
+
+  // Handle null/undefined case during build when data does not exist yet
+  if (!result.data) {
+    // Return default values so build can succeed
+    // Once deployed, you can add the actual data in Sanity Studio
+    return {
+      headline: 'Welcome',
+      subheading: 'Content coming soon',
+      ctaLabel: 'Coming soon',
+    };
+  }
+
   const parsed = HomePageDataSchema.safeParse(result.data);
 
   if (!parsed.success) {
     throw new Error(`Validation failed: ${parsed.error.message}`);
   }
+
   return parsed.data; // Type-safe, validated data
 };
 
