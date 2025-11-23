@@ -44,8 +44,8 @@ const treatments: Treatment[] = [
   },
   {
     id: 3,
-    name: 'Dermarolleres testkezelések',
-    href: '/kezelesek/dermarolleres-testkezelesek',
+    name: 'Dermarolleres testkezelés',
+    href: '/kezelesek/dermarolleres-testkezeles',
     description:
       'A dermaroller kezelés egy olyan modern bőrfeszesítő eljárás, melynek során, a bőr...',
   },
@@ -75,13 +75,15 @@ export const MyPerfectSearch = () => {
           role="combobox"
           aria-expanded={open}
           aria-controls=""
-          className="border-fuego-500 flex cursor-pointer items-center gap-2 rounded-md border bg-white px-3 py-2"
+          className="border-fuego-500 flex w-full cursor-pointer items-center gap-2 self-center rounded-md border bg-white p-3 lg:w-3xl"
         >
-          <SearchIcon className="size-4 shrink-0 opacity-50" />
-          <span className="text-fuego-800/50">Keress a kezeléseink között</span>
+          <SearchIcon className="text-fuego-500 size-6 shrink-0" />
+          <span className="text-fuego-800/50 text-lg">
+            Keress a kezeléseink között
+          </span>
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[311px] p-0 sm:w-[482px] md:w-[740px] lg:w-[1024px]">
+      <PopoverContent className="w-[311px] p-0 sm:w-xl md:w-2xl lg:w-3xl">
         <Command className="max-h-[300px] overflow-y-auto bg-white/95 backdrop-blur-sm sm:max-h-[400px]">
           <CommandInput placeholder="Kezdj gépelni..." />
           <CommandList>
