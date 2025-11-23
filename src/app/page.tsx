@@ -1,5 +1,6 @@
 import { CalendarDaysIcon } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { BackgroundShapes } from '@/app/components/BackgroundShapes';
 import { Container } from '@/app/components/Container';
@@ -29,10 +30,15 @@ export default async function Home() {
                   <p className="text-fuego-700/85 font-medium lg:text-lg">
                     {subheading}
                   </p>
-                  <button className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 mt-6 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-4 py-2 text-lg font-semibold uppercase transition-colors lg:self-start">
+                  <Link
+                    href="https://green-point-beauty.salonic.hu/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 mt-6 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-4 py-2 text-lg font-semibold uppercase transition-colors lg:self-start"
+                  >
                     <CalendarDaysIcon />
                     <span>{ctaLabel}</span>
-                  </button>
+                  </Link>
                 </div>
                 <Image
                   src="/images/pexels-karolina-grabowska-6629549.jpg"

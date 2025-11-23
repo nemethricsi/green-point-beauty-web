@@ -49,15 +49,15 @@ export default async function KezelesPage({
               <h1 className="text-fuego-900 font-serif text-4xl font-bold lg:text-5xl">
                 {name}
               </h1>
-              <div className="text-fuego-900 bg-fuego-200 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">
+              <div className="text-fuego-900 bg-fuego-100 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">
                 <p>{shortDescription}</p>
                 <Link
                   href={salonicUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:bg-fuego-400 group bg-fuego-300 flex items-center justify-center gap-2 rounded-md px-4 py-2 font-semibold transition-colors md:self-start"
+                  className="hover:bg-fuego-400 group bg-fuego-300 flex items-center justify-center gap-2 rounded-md px-4 py-2 font-semibold transition-colors hover:drop-shadow-sm md:self-start"
                 >
-                  <CalendarHeartIcon />
+                  <CalendarHeartIcon className="text-fuego-800/75" />
                   <span>Foglalás</span>
                   <ArrowRightIcon className="-rotate-45 transition-transform group-hover:-rotate-45 group-focus:-rotate-45 group-active:translate-x-0.5 lg:rotate-0" />
                 </Link>

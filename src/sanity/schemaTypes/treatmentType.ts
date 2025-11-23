@@ -39,7 +39,7 @@ export const treatmentType = defineType({
       name: 'details',
       type: 'array',
       title: 'Részletes leírás',
-      of: [{ type: 'block' }, { type: 'image' }],
+      of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
       validation: (Rule) => Rule.required(),
     }),
   ],
