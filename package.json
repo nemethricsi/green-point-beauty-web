@@ -11,7 +11,6 @@
     "deploy:schema:prod": "npx sanity schema deploy --dataset production"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.9",
     "@radix-ui/react-popover": "^1.1.15",
     "@sanity/client": "^7.12.1",
     "@sanity/icons": "^3.7.4",
