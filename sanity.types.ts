@@ -20,25 +20,50 @@ export type Treatment = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  slug?: Slug;
   shortDescription?: string;
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: 'span';
-      _key: string;
-    }>;
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
-    listItem?: 'bullet' | 'number';
-    markDefs?: Array<{
-      href?: string;
-      _type: 'link';
-      _key: string;
-    }>;
-    level?: number;
-    _type: 'block';
-    _key: string;
-  }>;
+  salonicUrl?: string;
+  details?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?:
+          | 'normal'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'blockquote';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  >;
 };
 
 export type HomePage = {
@@ -242,14 +267,60 @@ export type HOME_PAGE_QUERYResult = {
   ctaLabel: string | null;
 } | null;
 // Variable: TREATMENTS_QUERY
-// Query: *[_type == 'treatmentType']
-export type TREATMENTS_QUERYResult = Array<never>;
+// Query: *[  _type == 'treatment' &&  slug.current == $slug][0]{  "id":_id,  name,  shortDescription,  salonicUrl,  details}
+export type TREATMENTS_QUERYResult = {
+  id: string;
+  name: string | null;
+  shortDescription: string | null;
+  salonicUrl: string | null;
+  details: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: 'span';
+          _key: string;
+        }>;
+        style?:
+          | 'blockquote'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'normal';
+        listItem?: 'bullet' | 'number';
+        markDefs?: Array<{
+          href?: string;
+          _type: 'link';
+          _key: string;
+        }>;
+        level?: number;
+        _type: 'block';
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: 'reference';
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: 'image';
+        _key: string;
+      }
+  > | null;
+} | null;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
-    "*[_type == 'treatmentType']": TREATMENTS_QUERYResult;
+    '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  salonicUrl,\n  details\n}': TREATMENTS_QUERYResult;
   }
 }
