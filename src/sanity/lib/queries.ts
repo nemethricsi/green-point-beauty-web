@@ -31,16 +31,8 @@ export const fetchHomePage = async (): Promise<HomePageData> => {
   return parsed.data; // Type-safe, validated data
 };
 
-export const AUTHOR_QUERY =
-  defineQuery(`*[_type == 'author'] | order(lower(name) asc){
-  _id,
-  name,
-  bio,
-}`);
+const TREATMENTS_QUERY = defineQuery(`*[_type == 'treatmentType']`);
 
-export const fetchAuthors = async <T>(): Promise<T[]> => {
-  const result = await sanityFetch({
-    query: AUTHOR_QUERY,
-  });
-  return result.data as T[];
+export const fetchTreatments = async () => {
+  return sanityFetch({ query: TREATMENTS_QUERY });
 };
