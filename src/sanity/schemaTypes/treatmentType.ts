@@ -34,12 +34,31 @@ export const treatmentType = defineType({
       validation: (Rule) => Rule.max(160).required(),
     }),
     defineField({
-      name: 'salonicUrl',
+      name: 'mainImage',
+      type: 'image',
+      title: 'Főkép',
+      description: 'A kezelés főképe. Nem feltétlenül használjuk a weboldalon.',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          validation: (Rule) =>
+            Rule.required().error('A kép alternatív szövege nem lehet üres!'),
+          description: 'Egy leírás, hogy mi látható a képen.',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'bookingUrl',
       type: 'url',
-      title: 'Salonic URL',
-      validation: (Rule) => Rule.required(),
+      title: 'Foglaló URL',
       description:
-        'A kezelés URL-je a Salonic oldalon. (Pl. https://green-point-beauty.salonic.hu/selectEmployee/?placeId=2522&serviceId=240582)',
+        'A kezelés URL-je pl. a Salonic oldalon. (Pl. https://green-point-beauty.salonic.hu/selectEmployee/?placeId=2522&serviceId=240582)',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'details',
