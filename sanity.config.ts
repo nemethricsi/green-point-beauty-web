@@ -27,6 +27,17 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],
+  tools: (prev, { currentUser }) => {
+    const isAdmin = currentUser?.roles.some(
+      (role) => role.name === 'administrator',
+    );
+
+    if (isAdmin) {
+      return prev;
+    }
+
+    return prev.filter((tool) => tool.name !== 'vision');
+  },
   document: {
     newDocumentOptions: (prev) =>
       prev.filter((item) => item.templateId !== 'homePage'),
