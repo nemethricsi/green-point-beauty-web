@@ -30,6 +30,7 @@ export const treatmentType = defineType({
       name: 'shortDescription',
       type: 'text',
       title: 'Rövid leírás (max. 160 karakter)',
+      rows: 3,
       validation: (Rule) => Rule.max(160).required(),
     }),
     defineField({
