@@ -49,7 +49,7 @@ export const MyPerfectSearch = ({ treatments }: MyPerfectSearchProps) => {
         <Command className="max-h-[300px] overflow-y-auto bg-white/95 backdrop-blur-sm sm:max-h-[400px]">
           <CommandInput placeholder="Kezdj gépelni..." />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>Nem található eredmény.</CommandEmpty>
             <CommandGroup>
               {treatments.map(
                 ({ id, name, salonicUrl, shortDescription, slug }) => {
