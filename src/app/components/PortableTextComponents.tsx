@@ -15,18 +15,20 @@ export const components: PortableTextComponents = {
       if (value == null) return null;
 
       return (
-        <Image
-          src={urlFor(value)
-            .width(600)
-            .height(400)
-            .quality(80)
-            .auto('format')
-            .url()}
-          alt="something"
-          className="not-prose h-auto w-full rounded-lg"
-          width={600}
-          height={400}
-        />
+        <figure className="not-prose my-6">
+          <Image
+            src={urlFor(value)
+              .width(600)
+              .height(400)
+              .quality(80)
+              .auto('format')
+              .url()}
+            alt="something"
+            className="not-prose h-auto w-full rounded-lg"
+            width={600}
+            height={400}
+          />
+        </figure>
       );
     },
   },
