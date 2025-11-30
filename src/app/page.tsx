@@ -1,17 +1,30 @@
 import { CalendarDaysIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 import { BackgroundShapes } from '@/app/components/BackgroundShapes';
 import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { MyPerfectSearch } from '@/app/components/MyPerfectSearch';
+import { urlFor } from '@/sanity/lib/image';
 import { fetchHomePage, fetchTreatments } from '@/sanity/lib/queries';
 
 export default async function Home() {
-  const { headline, subheading, ctaLabel } = await fetchHomePage();
+  const { data: homePageData } = await fetchHomePage();
   const { data: treatments } = await fetchTreatments();
+
+  if (
+    homePageData?.headline == null ||
+    homePageData?.subheading == null ||
+    homePageData?.ctaLabel == null ||
+    homePageData?.image == null
+  ) {
+    notFound();
+  }
+
+  const { headline, subheading, ctaLabel, image } = homePageData;
 
   return (
     <>
@@ -41,8 +54,8 @@ export default async function Home() {
                   </Link>
                 </div>
                 <Image
-                  src="/images/pexels-karolina-grabowska-6629549.jpg"
-                  alt="Green Point Beauty"
+                  src={urlFor(image).quality(100).auto('format').url()}
+                  alt={image.alt ?? ''}
                   width={500}
                   height={500}
                   className="rounded-3xl"

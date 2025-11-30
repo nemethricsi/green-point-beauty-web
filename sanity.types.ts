@@ -97,6 +97,7 @@ export type HomePage = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
     _type: 'image';
   };
   ctaLabel?: string;
@@ -273,10 +274,23 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == 'homePage'][0]{  headline,  subheading,  ctaLabel,}
+// Query: *[_type == 'homePage'][0]{  headline,  subheading,  image,  ctaLabel,}
 export type HOME_PAGE_QUERYResult = {
   headline: string | null;
   subheading: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  } | null;
   ctaLabel: string | null;
 } | null;
 // Variable: TREATMENTS_QUERY
@@ -342,7 +356,7 @@ export type SINGLE_TREATMENT_QUERYResult = {
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
+    "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
     '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n}': TREATMENTS_QUERYResult;
     '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details\n}': SINGLE_TREATMENT_QUERYResult;
   }
