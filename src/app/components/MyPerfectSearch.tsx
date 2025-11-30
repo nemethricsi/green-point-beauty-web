@@ -52,10 +52,10 @@ export const MyPerfectSearch = ({ treatments }: MyPerfectSearchProps) => {
             <CommandEmpty>Nem található eredmény.</CommandEmpty>
             <CommandGroup>
               {treatments.map(
-                ({ id, name, salonicUrl, shortDescription, slug }) => {
+                ({ id, name, bookingUrl, shortDescription, slug }) => {
                   if (
                     name == null ||
-                    salonicUrl == null ||
+                    bookingUrl == null ||
                     shortDescription == null ||
                     slug == null
                   ) {
@@ -101,7 +101,7 @@ export const MyPerfectSearch = ({ treatments }: MyPerfectSearchProps) => {
                           </p>
                         </div>
                         <a
-                          href={salonicUrl}
+                          href={bookingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-2 py-1 font-semibold transition-colors"

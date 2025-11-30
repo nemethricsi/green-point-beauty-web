@@ -21,7 +21,7 @@ export default async function KezelesPage({
 
   if (
     treatment == null ||
-    treatment.salonicUrl == null ||
+    treatment.bookingUrl == null ||
     treatment.name == null ||
     treatment.shortDescription == null ||
     treatment.details == null
@@ -29,7 +29,7 @@ export default async function KezelesPage({
     notFound();
   }
 
-  const { name, salonicUrl, shortDescription, details } = treatment;
+  const { name, bookingUrl, shortDescription, details } = treatment;
 
   return (
     <>
@@ -52,7 +52,7 @@ export default async function KezelesPage({
               <div className="text-fuego-900 bg-fuego-100 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">
                 <p>{shortDescription}</p>
                 <Link
-                  href={salonicUrl}
+                  href={bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:bg-fuego-400 group bg-fuego-300 flex items-center justify-center gap-2 rounded-md px-4 py-2 font-semibold transition-colors hover:drop-shadow-sm md:self-start"

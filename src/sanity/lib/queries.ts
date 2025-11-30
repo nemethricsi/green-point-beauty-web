@@ -38,7 +38,7 @@ const TREATMENTS_QUERY = defineQuery(`*[
   name,
   "slug":slug.current,
   shortDescription,
-  salonicUrl,
+  bookingUrl,
 }`);
 
 export const fetchTreatments = async () => {
@@ -52,7 +52,7 @@ const SINGLE_TREATMENT_QUERY = defineQuery(`*[
   "id":_id,
   name,
   shortDescription,
-  salonicUrl,
+  bookingUrl,
   details
 }`);
 
