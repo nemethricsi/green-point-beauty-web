@@ -9,11 +9,16 @@ import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { MyPerfectSearch } from '@/app/components/MyPerfectSearch';
 import { urlFor } from '@/sanity/lib/image';
-import { fetchHomePage, fetchTreatments } from '@/sanity/lib/queries';
+import {
+  fetchHomePage,
+  fetchNavigation,
+  fetchTreatments,
+} from '@/sanity/lib/queries';
 
 export default async function Home() {
   const { data: homePageData } = await fetchHomePage();
   const { data: treatments } = await fetchTreatments();
+  const { data: navigation } = await fetchNavigation();
 
   if (
     homePageData?.headline == null ||
@@ -28,21 +33,23 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
+      <Header navigation={navigation} />
       <main className="flex flex-1 flex-col px-4 pt-20 lg:px-0 lg:pt-0">
         <Container className="flex flex-1 flex-col py-4 lg:py-12">
           <BackgroundShapes />
-          <div className="mx-auto flex max-w-5xl flex-1 items-center justify-center">
-            <div className="flex flex-col gap-12 lg:gap-20">
+          <div className="mx-auto flex max-w-5xl flex-1 items-start justify-center">
+            <div className="flex flex-col gap-12 lg:gap-12">
               <MyPerfectSearch treatments={treatments} />
               <div className="flex flex-col gap-8 lg:flex-row">
-                <div className="flex flex-col gap-2">
-                  <h1 className="text-fuego-900 font-serif text-4xl leading-tight font-bold lg:text-6xl">
-                    {headline}
-                  </h1>
-                  <p className="text-fuego-700/85 font-medium lg:text-lg">
-                    {subheading}
-                  </p>
+                <div className="flex flex-col gap-8">
+                  <div className="flex flex-col gap-3">
+                    <h1 className="text-fuego-900 font-serif text-4xl leading-none font-bold lg:text-[56px]">
+                      {headline}
+                    </h1>
+                    <p className="text-fuego-800/75 font-normal lg:text-lg">
+                      {subheading}
+                    </p>
+                  </div>
                   <Link
                     href="https://green-point-beauty.salonic.hu/"
                     target="_blank"

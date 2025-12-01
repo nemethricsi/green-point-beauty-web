@@ -3,8 +3,19 @@ import type { StructureResolver } from 'sanity/structure';
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Studio')
+    .title('Green Point Beauty')
     .items([
+      S.divider().title('Egyedi tartalmak'),
+      S.listItem()
+        .id('navigation')
+        .schemaType('navigation')
+        .title('Főmenü')
+        .child(
+          S.editor()
+            .id('navigation')
+            .schemaType('navigation')
+            .documentId('navigation'),
+        ),
       S.listItem()
         .id('homePage')
         .schemaType('homePage')
@@ -15,8 +26,9 @@ export const structure: StructureResolver = (S) =>
             .schemaType('homePage')
             .documentId('homePage'),
         ),
-      S.divider(),
+      S.divider().title('Gyűjtemények'),
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['homePage'].includes(item.getId()!),
+        (item) =>
+          item.getId() && !['homePage', 'navigation'].includes(item.getId()!),
       ),
     ]);

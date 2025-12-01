@@ -41,3 +41,40 @@ const SINGLE_TREATMENT_QUERY = defineQuery(`*[
 export const fetchTreatmentBySlug = async (slug: string) => {
   return sanityFetch({ query: SINGLE_TREATMENT_QUERY, params: { slug } });
 };
+
+const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
+  navMenuItems[]{
+    _id,
+    label,
+    mode,
+    mode == 'link' && linkType == "external" => {
+      "link": {
+        "type": "external",
+        "url": externalLink
+      }
+    },
+    mode == "link" && linkType == "internal" => {
+      "link": {
+        "type": "internal",
+        "target": internalLink->{
+          name,
+          shortDescription,
+          "slug": slug.current,
+          mainImage
+        }
+      }
+    },
+    mode == "group" => {
+      "group": referencedTreatments[]->{
+        name,
+        shortDescription,
+        "slug": slug.current,
+        mainImage
+      }
+    }
+  }
+}`);
+
+export const fetchNavigation = async () => {
+  return sanityFetch({ query: NAVIGATION_QUERY });
+};
