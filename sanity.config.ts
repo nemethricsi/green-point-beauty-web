@@ -40,7 +40,9 @@ export default defineConfig({
   },
   document: {
     newDocumentOptions: (prev) =>
-      prev.filter((item) => item.templateId !== 'homePage'),
+      prev.filter(
+        (item) => !['homePage', 'navigation'].includes(item.templateId!),
+      ),
     actions: (input, context) =>
       singletonTypes.has(context.schemaType)
         ? input.filter(({ action }) => action && singletonActions.has(action))

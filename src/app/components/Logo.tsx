@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const Logo = () => {
   return (
     <>
-      <Link href="/" className="hidden w-fit lg:flex">
+      <Link href="/" className="hidden w-fit shrink-0 lg:flex">
         <Image
           src="/images/gpb-logo.svg"
           alt="Green Point Beauty logo"

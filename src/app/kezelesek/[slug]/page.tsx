@@ -8,7 +8,7 @@ import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { components } from '@/app/components/PortableTextComponents';
-import { fetchTreatmentBySlug } from '@/sanity/lib/queries';
+import { fetchNavigation, fetchTreatmentBySlug } from '@/sanity/lib/queries';
 
 export default async function KezelesPage({
   params,
@@ -18,10 +18,11 @@ export default async function KezelesPage({
   const { slug } = await params;
 
   const { data: treatment } = await fetchTreatmentBySlug(slug);
+  const { data: navigation } = await fetchNavigation();
 
   if (
     treatment == null ||
-    treatment.salonicUrl == null ||
+    treatment.bookingUrl == null ||
     treatment.name == null ||
     treatment.shortDescription == null ||
     treatment.details == null
@@ -29,11 +30,11 @@ export default async function KezelesPage({
     notFound();
   }
 
-  const { name, salonicUrl, shortDescription, details } = treatment;
+  const { name, bookingUrl, shortDescription, details } = treatment;
 
   return (
     <>
-      <Header />
+      <Header navigation={navigation} />
       <main className="flex flex-1 flex-col px-4 pt-20 lg:px-0 lg:pt-0">
         <Container className="flex flex-1 flex-col py-6 lg:py-12">
           <BackgroundShapes />
@@ -41,7 +42,7 @@ export default async function KezelesPage({
             <div className="flex flex-col gap-6 lg:gap-10">
               <Link
                 href="/"
-                className="text-fuego-900 flex items-center gap-2 rounded-md p-2 font-semibold hover:bg-neutral-200/50 md:self-start"
+                className="text-fuego-600 hover:bg-fuego-200/75 flex items-center gap-2 rounded-md p-2 font-semibold md:self-start"
               >
                 <ArrowLeftIcon className="h-6 w-6" />
                 <span>Vissza</span>
@@ -52,7 +53,7 @@ export default async function KezelesPage({
               <div className="text-fuego-900 bg-fuego-100 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">
                 <p>{shortDescription}</p>
                 <Link
-                  href={salonicUrl}
+                  href={bookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:bg-fuego-400 group bg-fuego-300 flex items-center justify-center gap-2 rounded-md px-4 py-2 font-semibold transition-colors hover:drop-shadow-sm md:self-start"
