@@ -45,12 +45,12 @@ export const MyPerfectSearch = ({ treatments }: MyPerfectSearchProps) => {
           </span>
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[311px] p-0 sm:w-xl md:w-2xl lg:w-3xl">
-        <Command className="max-h-[300px] overflow-y-auto bg-white/95 backdrop-blur-sm sm:max-h-[400px]">
+      <PopoverContent className="w-(--radix-popover-trigger-width) p-0">
+        <Command className="max-h-[300px] bg-white backdrop-blur-sm sm:max-h-[400px]">
           <CommandInput placeholder="Kezdj gépelni..." />
-          <CommandList>
+          <CommandList className="overflow-y-scroll">
             <CommandEmpty>Nem található eredmény.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="p-2">
               {treatments.map(
                 ({ id, name, bookingUrl, shortDescription, slug }) => {
                   if (
@@ -79,6 +79,7 @@ export const MyPerfectSearch = ({ treatments }: MyPerfectSearchProps) => {
                     <CommandItem
                       key={id}
                       value={name}
+                      className="data-[selected=true]:bg-fuego-300/25"
                       onSelect={(currentValue) => {
                         setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
