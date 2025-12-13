@@ -49,11 +49,11 @@ type Collection = {
 
 export type NavMenuItemFromSanity = ExternalLink | InternalLink | Collection;
 
-export const DesktopNavigation = ({
-  navMenuItems,
-}: {
+type DesktopNavigationProps = {
   navMenuItems: NavMenuItemFromSanity[];
-}) => {
+};
+
+export const DesktopNavigation = ({ navMenuItems }: DesktopNavigationProps) => {
   return (
     <div className="hidden justify-center lg:flex">
       <NavigationMenu viewport={false}>

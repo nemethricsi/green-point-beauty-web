@@ -7,6 +7,7 @@ import {
   NavMenuItemFromSanity,
 } from '@/app/components/DesktopNavigation';
 import { Logo } from '@/app/components/Logo';
+import { MobileNavigation } from '@/app/components/MobileNavigation';
 
 // eslint-disable-next-line no-restricted-imports
 import { type NAVIGATION_QUERYResult } from '../../../sanity.types';
@@ -36,6 +37,9 @@ export const Header = ({
             <span>Foglalás</span>
           </Link>
         </div>
+        {navMenuItems != null && (
+          <MobileNavigation navMenuItems={navMenuItems} />
+        )}
       </Container>
     </header>
   );

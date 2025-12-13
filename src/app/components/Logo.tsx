@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const Logo = () => {
+import { cn } from '@/lib/utils';
+
+export const Logo = ({ className }: { className?: string }) => {
   return (
     <>
-      <Link href="/" className="hidden w-fit shrink-0 lg:flex">
+      <Link href="/" className={cn('hidden w-fit shrink-0 lg:flex', className)}>
         <Image
           src="/images/gpb-logo.svg"
           alt="Green Point Beauty logo"
