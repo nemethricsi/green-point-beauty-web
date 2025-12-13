@@ -3,6 +3,7 @@
 import { CalendarDaysIcon, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import {
   Command,
@@ -37,6 +38,7 @@ type SearchBarProps = {
 export const SearchBar = ({ treatments }: SearchBarProps) => {
   const router = useRouter();
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  const [isOpen, setIsOpen] = useState(false);
 
   if (isDesktop) {
     return (
@@ -136,7 +138,7 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
   }
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger className="border-fuego-500 flex w-full cursor-pointer items-center gap-2 self-center rounded-md border bg-white p-3">
         <SearchIcon className="text-fuego-500 size-6 shrink-0" />
         <span className="text-fuego-800/50">Keress a kezeléseink között</span>
@@ -175,7 +177,10 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
                         key={id}
                         value={name}
                         className="data-[selected=true]:bg-fuego-300/25 flex flex-1 cursor-pointer flex-col items-stretch justify-between gap-6 border-b border-neutral-200 p-4 lg:flex-row lg:items-center"
-                        onSelect={() => router.push(`/kezelesek/${slug}`)}
+                        onSelect={() => {
+                          setIsOpen(false);
+                          router.push(`/kezelesek/${slug}`);
+                        }}
                       >
                         <div className="flex flex-1 flex-col gap-1">
                           <span className="text-fuego-950 font-medium">
@@ -188,17 +193,11 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
                         <div
                           role="link"
                           tabIndex={0}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              window.open(bookingUrl, '_blank');
-                            }
-                          }}
                           className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-2 py-1 font-semibold transition-colors"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
+                            setIsOpen(false);
                             window.open(bookingUrl, '_blank');
                           }}
                         >
