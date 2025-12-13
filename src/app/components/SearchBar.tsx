@@ -1,0 +1,126 @@
+'use client';
+
+import { CalendarDaysIcon, SearchIcon } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/app/components/Command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/app/components/Popover';
+import { urlFor } from '@/sanity/lib/image';
+
+// eslint-disable-next-line no-restricted-imports
+import { TREATMENTS_QUERYResult } from '../../../sanity.types';
+
+type SearchBarProps = {
+  treatments: TREATMENTS_QUERYResult;
+};
+
+export const SearchBar = ({ treatments }: SearchBarProps) => {
+  const router = useRouter();
+
+  return (
+    <Popover>
+      <PopoverTrigger className="border-fuego-500 flex w-full cursor-pointer items-center gap-2 self-center rounded-md border bg-white p-3 lg:w-3xl">
+        <SearchIcon className="text-fuego-500 size-6 shrink-0" />
+        <span className="text-fuego-800/50 text-lg">
+          Keress a kezeléseink között
+        </span>
+      </PopoverTrigger>
+      <PopoverContent className="w-(--radix-popover-trigger-width) p-0 shadow-2xl">
+        <Command className="max-h-[300px] bg-white backdrop-blur-sm sm:max-h-[400px]">
+          <CommandInput placeholder="Kezdj gépelni..." />
+          <CommandList className="overflow-y-scroll">
+            <CommandEmpty>Nem található eredmény.</CommandEmpty>
+            <CommandGroup className="p-2">
+              {treatments.map(
+                ({
+                  id,
+                  name,
+                  bookingUrl,
+                  shortDescription,
+                  slug,
+                  mainImage,
+                }) => {
+                  if (
+                    name == null ||
+                    bookingUrl == null ||
+                    shortDescription == null ||
+                    slug == null ||
+                    mainImage == null
+                  ) {
+                    return null;
+                  }
+
+                  const src = urlFor(mainImage)
+                    .width(64)
+                    .height(64)
+                    .quality(100)
+                    .auto('format')
+                    .url();
+
+                  return (
+                    <CommandItem
+                      key={id}
+                      value={name}
+                      className="data-[selected=true]:bg-fuego-300/25 flex flex-1 cursor-pointer flex-col justify-between gap-6 p-4 lg:flex-row lg:items-center"
+                      onSelect={() => router.push(`/kezelesek/${slug}`)}
+                    >
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src={src}
+                          alt={name}
+                          width={64}
+                          height={64}
+                          className="shrink-0 rounded-md"
+                        />
+                        <div className="flex flex-1 flex-col gap-1">
+                          <span className="text-fuego-950 font-medium">
+                            {name}
+                          </span>
+                          <p className="text-sm text-neutral-500">
+                            {shortDescription}
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        role="link"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(bookingUrl, '_blank');
+                          }
+                        }}
+                        className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-2 py-1 font-semibold transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          window.open(bookingUrl, '_blank');
+                        }}
+                      >
+                        <CalendarDaysIcon />
+                        <span>Foglalás</span>
+                      </div>
+                    </CommandItem>
+                  );
+                },
+              )}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};

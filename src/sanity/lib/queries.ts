@@ -21,6 +21,7 @@ const TREATMENTS_QUERY = defineQuery(`*[
   "slug":slug.current,
   shortDescription,
   bookingUrl,
+  mainImage
 }`);
 
 export const fetchTreatments = async () => {

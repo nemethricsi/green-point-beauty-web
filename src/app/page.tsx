@@ -7,7 +7,7 @@ import { BackgroundShapes } from '@/app/components/BackgroundShapes';
 import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
-import { MyPerfectSearch } from '@/app/components/MyPerfectSearch';
+import { SearchBar } from '@/app/components/SearchBar';
 import { urlFor } from '@/sanity/lib/image';
 import {
   fetchHomePage,
@@ -39,7 +39,7 @@ export default async function Home() {
           <BackgroundShapes />
           <div className="mx-auto flex max-w-5xl flex-1 items-start justify-center">
             <div className="flex flex-col gap-12 lg:gap-12">
-              <MyPerfectSearch treatments={treatments} />
+              <SearchBar treatments={treatments} />
               <div className="flex flex-col gap-8 lg:flex-row">
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-col gap-3">
