@@ -136,12 +136,12 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
   }
 
   return (
-    <Drawer snapPoints={[1]}>
+    <Drawer>
       <DrawerTrigger className="border-fuego-500 flex w-full cursor-pointer items-center gap-2 self-center rounded-md border bg-white p-3">
         <SearchIcon className="text-fuego-500 size-6 shrink-0" />
         <span className="text-fuego-800/50">Keress a kezeléseink között</span>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="h-[60%]">
         <DrawerHeader className="sr-only">
           <DrawerTitle>Kezelés kereső</DrawerTitle>
         </DrawerHeader>
