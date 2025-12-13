@@ -141,11 +141,11 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
         <SearchIcon className="text-fuego-500 size-6 shrink-0" />
         <span className="text-fuego-800/50">Keress a kezeléseink között</span>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[82vh]">
+      <DrawerContent className="flex h-[90vh] flex-col">
         <DrawerHeader className="sr-only">
           <DrawerTitle>Kezelés kereső</DrawerTitle>
         </DrawerHeader>
-        <div className="w-full overflow-auto p-4">
+        <div className="flex flex-1 flex-col overflow-hidden px-4 pb-4">
           <Command className="flex h-full flex-col bg-white backdrop-blur-sm">
             <CommandInput placeholder="Kezdj gépelni..." autoFocus />
             <CommandList className="flex-1 overflow-y-auto">
