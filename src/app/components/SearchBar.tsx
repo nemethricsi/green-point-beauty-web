@@ -145,7 +145,7 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
         <DrawerHeader className="sr-only">
           <DrawerTitle>Kezelés kereső</DrawerTitle>
         </DrawerHeader>
-        <Command className="bg-white backdrop-blur-sm">
+        <Command className="mt-8 bg-white backdrop-blur-sm">
           <CommandInput placeholder="Kezdj gépelni..." autoFocus />
           <CommandList className="overflow-y-scroll">
             <CommandEmpty>Nem található eredmény.</CommandEmpty>
