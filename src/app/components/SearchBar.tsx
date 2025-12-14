@@ -143,7 +143,7 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
         <SearchIcon className="text-fuego-500 size-6 shrink-0" />
         <span className="text-fuego-800/50">Keress a kezeléseink között</span>
       </DrawerTrigger>
-      <DrawerContent className="flex h-[60vh] flex-col">
+      <DrawerContent className="flex h-[40vh] flex-col">
         <DrawerHeader className="sr-only">
           <DrawerTitle>Kezelés kereső</DrawerTitle>
         </DrawerHeader>
