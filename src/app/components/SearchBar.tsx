@@ -1,6 +1,6 @@
 'use client';
 
-import { CalendarDaysIcon, SearchIcon } from 'lucide-react';
+import { CalendarHeartIcon, SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -122,7 +122,7 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
                             window.open(bookingUrl, '_blank');
                           }}
                         >
-                          <CalendarDaysIcon />
+                          <CalendarHeartIcon />
                           <span>Foglalás</span>
                         </div>
                       </CommandItem>
@@ -201,7 +201,7 @@ export const SearchBar = ({ treatments }: SearchBarProps) => {
                             window.open(bookingUrl, '_blank');
                           }}
                         >
-                          <CalendarDaysIcon />
+                          <CalendarHeartIcon />
                           <span>Foglalás</span>
                         </div>
                       </CommandItem>

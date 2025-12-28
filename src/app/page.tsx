@@ -1,4 +1,4 @@
-import { CalendarDaysIcon } from 'lucide-react';
+import { CalendarHeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -39,7 +39,9 @@ export default async function Home() {
           <BackgroundShapes />
           <div className="mx-auto flex max-w-5xl flex-1 items-start justify-center">
             <div className="flex flex-col gap-12 lg:gap-12">
-              <SearchBar treatments={treatments} />
+              <div className="hidden justify-center md:flex">
+                <SearchBar treatments={treatments} />
+              </div>
               <div className="flex flex-col gap-8 lg:flex-row">
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-col gap-3">
@@ -54,9 +56,9 @@ export default async function Home() {
                     href="https://green-point-beauty.salonic.hu/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 mt-6 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-4 py-2 text-lg font-semibold uppercase transition-colors lg:self-start"
+                    className="from-fuego-300 to-fuego-400 hover:from-fuego-400 hover:to-fuego-300 border-fuego-500 text-fuego-800 flex cursor-pointer items-center justify-center gap-2 rounded-md border bg-linear-to-br px-4 py-2 text-lg font-semibold uppercase transition-colors lg:self-start"
                   >
-                    <CalendarDaysIcon />
+                    <CalendarHeartIcon />
                     <span>{ctaLabel}</span>
                   </Link>
                 </div>
@@ -65,7 +67,7 @@ export default async function Home() {
                   alt={image.alt ?? ''}
                   width={500}
                   height={500}
-                  className="rounded-3xl"
+                  className="w-full rounded-3xl"
                 />
               </div>
             </div>
