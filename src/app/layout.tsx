@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist_Mono, Bricolage_Grotesque, Inter } from 'next/font/google';
 
+import { Providers } from '@/app/components/Providers';
 import { SanityLive } from '@/sanity/lib/live';
 
 import '@/app/globals.css';
@@ -35,7 +36,7 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} ${geistMono.variable} ${bricolageGrotesqueSerif.variable} bg-fuego-50 flex min-h-screen flex-col text-black antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
         <SanityLive />
       </body>
     </html>

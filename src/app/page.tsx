@@ -1,4 +1,4 @@
-import { CalendarHeartIcon, MapPinCheckIcon } from 'lucide-react';
+import { CalendarHeartIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';

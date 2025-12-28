@@ -12,6 +12,7 @@
     "deploy:schema:prod": "npx sanity schema deploy --dataset production"
   },
   "dependencies": {
+    "@bprogress/next": "^3.2.12",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-popover": "^1.1.15",
