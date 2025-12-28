@@ -47,7 +47,7 @@ export default async function KezelesPage({
                 <ArrowLeftIcon className="h-6 w-6" />
                 <span>Vissza</span>
               </Link>
-              <h1 className="text-fuego-900 font-serif text-4xl font-bold lg:text-5xl">
+              <h1 className="text-fuego-900 font-serif text-3xl font-bold lg:text-5xl">
                 {name}
               </h1>
               <div className="text-fuego-900 bg-fuego-100 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">

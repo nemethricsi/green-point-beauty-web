@@ -324,13 +324,26 @@ export type HOME_PAGE_QUERYResult = {
   ctaLabel: string | null;
 } | null;
 // Variable: TREATMENTS_QUERY
-// Query: *[  _type == 'treatment']{  "id":_id,  name,  "slug":slug.current,  shortDescription,  bookingUrl,}
+// Query: *[  _type == 'treatment']{  "id":_id,  name,  "slug":slug.current,  shortDescription,  bookingUrl,  mainImage}
 export type TREATMENTS_QUERYResult = Array<{
   id: string;
   name: string | null;
   slug: string | null;
   shortDescription: string | null;
   bookingUrl: string | null;
+  mainImage: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: 'image';
+  } | null;
 }>;
 // Variable: SINGLE_TREATMENT_QUERY
 // Query: *[  _type == 'treatment' &&  slug.current == $slug][0]{  "id":_id,  name,  shortDescription,  bookingUrl,  details}
@@ -527,7 +540,7 @@ import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
-    '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n}': TREATMENTS_QUERYResult;
+    '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n  mainImage\n}': TREATMENTS_QUERYResult;
     '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details\n}': SINGLE_TREATMENT_QUERYResult;
     '*[_type == \'navigation\'][0]{\n  navMenuItems[]{\n    _id,\n    label,\n    mode,\n    mode == \'link\' && linkType == "external" => {\n      "link": {\n        "type": "external",\n        "url": externalLink\n      }\n    },\n    mode == "link" && linkType == "internal" => {\n      "link": {\n        "type": "internal",\n        "target": internalLink->{\n          name,\n          shortDescription,\n          "slug": slug.current,\n          mainImage\n        }\n      }\n    },\n    mode == "group" => {\n      "group": referencedTreatments[]->{\n        name,\n        shortDescription,\n        "slug": slug.current,\n        mainImage\n      }\n    }\n  }\n}': NAVIGATION_QUERYResult;
   }
