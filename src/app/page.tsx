@@ -77,7 +77,7 @@ export default async function Home() {
                     Green Point Beauty
                   </strong>
                   <span className="text-fuego-900/75">
-                    📍 1066 Budapest, Zichy Jenő u. 1. Fsz. 2.
+                    📍 1066 Budapest, Zichy Jenő u. 1. Fsz. 2. (kapucsengő: 101)
                   </span>
                   <a
                     className="text-fuego-900/75 underline underline-offset-4"
@@ -86,7 +86,7 @@ export default async function Home() {
                     📞 +36 30 420 0933
                   </a>
                 </div>
-                <div className="border-fuego-700/25 rounded-lg border">
+                <div className="border-fuego-700/25 max-w-xl rounded-lg border">
                   <iframe
                     // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2695.327326328058!2d19.052879476329124!3d47.50301627118055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc5d208bb3a7%3A0xc5311960d2e1452d!2sGreen%20Point%20Beauty!5e0!3m2!1sen!2shu!4v1766956749972!5m2!1sen!2shu"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.8318315820144!2d19.054810666706768!3d47.50301627118057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc5d208bb3a7%3A0xc5311960d2e1452d!2sGreen%20Point%20Beauty!5e0!3m2!1sen!2shu!4v1766957080319!5m2!1sen!2shu"
