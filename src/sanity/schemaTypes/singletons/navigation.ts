@@ -2,7 +2,7 @@ import { defineType, defineField, defineArrayMember } from 'sanity';
 
 export const navigation = defineType({
   name: 'navigation',
-  title: 'Főmenü',
+  title: 'Navigáció',
   type: 'document',
   icon: () => '🔀',
   fields: [
@@ -121,7 +121,7 @@ export const navigation = defineType({
   preview: {
     prepare() {
       return {
-        title: 'Főmenü',
+        title: 'Navigáció',
       };
     },
   },
