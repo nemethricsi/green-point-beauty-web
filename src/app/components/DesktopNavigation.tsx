@@ -16,9 +16,10 @@ import { urlFor } from '@/sanity/lib/image';
 // eslint-disable-next-line no-restricted-imports
 import { SanityImageAsset } from '../../../sanity.types';
 
-type TreatmentInNav = {
+type NavTarget = {
   name: string;
   slug: string;
+  pageType: 'treatment' | 'customPage';
   mainImage: SanityImageAsset;
   shortDescription: string;
 };
@@ -37,14 +38,14 @@ type InternalLink = {
   mode: 'link';
   link: {
     type: 'internal';
-    target: TreatmentInNav;
+    target: NavTarget;
   };
 };
 
 type Collection = {
   mode: 'group';
   label: string;
-  group: TreatmentInNav[];
+  group: NavTarget[];
 };
 
 export type NavMenuItemFromSanity = ExternalLink | InternalLink | Collection;
@@ -80,16 +81,7 @@ export const DesktopNavigation = ({ navMenuItems }: DesktopNavigationProps) => {
                   )}
                 {menuItem.mode === 'link' &&
                   menuItem.link.type === 'internal' && (
-                    <NavigationMenuItem>
-                      <NavigationMenuLink
-                        asChild
-                        className={navigationMenuTriggerStyle()}
-                      >
-                        <Link href={`/kezelesek/${menuItem.link.target.slug}`}>
-                          {menuItem.label}
-                        </Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
+                    <InternalLinkComponent menuItem={menuItem as InternalLink} />
                   )}
                 {menuItem.mode === 'group' && (
                   <NavigationMenuItem>
@@ -158,5 +150,22 @@ function ListItem({
         </Link>
       </NavigationMenuLink>
     </li>
+  );
+}
+
+type InternalLinkComponentProps = {
+  menuItem: InternalLink;
+};
+
+function InternalLinkComponent({ menuItem }: InternalLinkComponentProps) {
+  const { slug, pageType } = menuItem.link.target;
+  const href = pageType === 'customPage' ? `/p/${slug}` : `/kezelesek/${slug}`;
+
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+        <Link href={href}>{menuItem.label}</Link>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
   );
 }
