@@ -13,42 +13,6 @@
  */
 
 // Source: schema.json
-export type Navigation = {
-  _id: string;
-  _type: 'navigation';
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  navMenuItems?: Array<{
-    label?: string;
-    mode?: 'link' | 'group';
-    linkType?: 'internal' | 'external';
-    internalLink?:
-      | {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'treatment';
-        }
-      | {
-          _ref: string;
-          _type: 'reference';
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: 'customPage';
-        };
-    externalLink?: string;
-    referencedTreatments?: Array<{
-      _ref: string;
-      _type: 'reference';
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: 'treatment';
-    }>;
-    _type: 'navMenuItem';
-    _key: string;
-  }>;
-};
-
 export type CustomPage = {
   _id: string;
   _type: 'customPage';
@@ -77,6 +41,35 @@ export type CustomPage = {
   }>;
 };
 
+export type Navigation = {
+  _id: string;
+  _type: 'navigation';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  navMenuItems?: Array<{
+    label?: string;
+    mode?: 'link' | 'group';
+    linkType?: 'internal' | 'external';
+    internalLink?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'treatment';
+    };
+    externalLink?: string;
+    referencedTreatments?: Array<{
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: 'treatment';
+    }>;
+    _type: 'navMenuItem';
+    _key: string;
+  }>;
+};
+
 export type Treatment = {
   _id: string;
   _type: 'treatment';
@@ -100,6 +93,12 @@ export type Treatment = {
     _type: 'image';
   };
   bookingUrl?: string;
+  category?: {
+    _ref: string;
+    _type: 'reference';
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: 'treatmentCategory';
+  };
   details?: Array<
     | {
         children?: Array<{
@@ -141,6 +140,16 @@ export type Treatment = {
         _key: string;
       }
   >;
+};
+
+export type TreatmentCategory = {
+  _id: string;
+  _type: 'treatmentCategory';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
 };
 
 export type HomePage = {
@@ -321,9 +330,10 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | Navigation
   | CustomPage
+  | Navigation
   | Treatment
+  | TreatmentCategory
   | HomePage
   | BlockContent
   | SanityImagePaletteSwatch
@@ -463,34 +473,25 @@ export type NAVIGATION_QUERYResult = {
         mode: 'group' | 'link' | null;
         link: {
           type: 'internal';
-          target:
-            | {
-                name: null;
-                shortDescription: null;
-                slug: string | null;
-                pageType: 'customPage';
-                mainImage: null;
-              }
-            | {
-                name: string | null;
-                shortDescription: string | null;
-                slug: string | null;
-                pageType: 'treatment';
-                mainImage: {
-                  asset?: {
-                    _ref: string;
-                    _type: 'reference';
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                  };
-                  media?: unknown;
-                  hotspot?: SanityImageHotspot;
-                  crop?: SanityImageCrop;
-                  alt?: string;
-                  _type: 'image';
-                } | null;
-              }
-            | null;
+          target: {
+            name: string | null;
+            shortDescription: string | null;
+            slug: string | null;
+            pageType: 'treatment';
+            mainImage: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            } | null;
+          } | null;
         };
         group: Array<{
           name: string | null;
@@ -567,34 +568,25 @@ export type NAVIGATION_QUERYResult = {
         mode: 'group' | 'link' | null;
         link: {
           type: 'internal';
-          target:
-            | {
-                name: null;
-                shortDescription: null;
-                slug: string | null;
-                pageType: 'customPage';
-                mainImage: null;
-              }
-            | {
-                name: string | null;
-                shortDescription: string | null;
-                slug: string | null;
-                pageType: 'treatment';
-                mainImage: {
-                  asset?: {
-                    _ref: string;
-                    _type: 'reference';
-                    _weak?: boolean;
-                    [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
-                  };
-                  media?: unknown;
-                  hotspot?: SanityImageHotspot;
-                  crop?: SanityImageCrop;
-                  alt?: string;
-                  _type: 'image';
-                } | null;
-              }
-            | null;
+          target: {
+            name: string | null;
+            shortDescription: string | null;
+            slug: string | null;
+            pageType: 'treatment';
+            mainImage: {
+              asset?: {
+                _ref: string;
+                _type: 'reference';
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+              };
+              media?: unknown;
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              alt?: string;
+              _type: 'image';
+            } | null;
+          } | null;
         };
       }
     | {

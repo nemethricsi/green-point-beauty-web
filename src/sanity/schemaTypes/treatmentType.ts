@@ -61,6 +61,13 @@ export const treatmentType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'category',
+      title: 'Kategória',
+      type: 'reference',
+      to: [{ type: 'treatmentCategory' }],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'details',
       type: 'array',
       title: 'Részletes leírás',

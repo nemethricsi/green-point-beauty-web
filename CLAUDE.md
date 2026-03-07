@@ -36,6 +36,7 @@ UI language in Sanity schemas is Hungarian. Code language is English.
 - Schema field titles in Hungarian, field names in English camelCase
 - Always add `validation: (Rule) => Rule.required()` unless a field is intentionally optional
 - Use `createSlugWithUrlInput(basePath)` for slug fields
+- Use emoji functions for schema icons (e.g. `icon: () => '🗂️'`), not `@sanity/icons`
 
 ### Sanity Queries
 
