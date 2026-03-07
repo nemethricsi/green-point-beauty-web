@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity';
 
-import { SlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
+import { createSlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
 
 export const treatmentType = defineType({
   name: 'treatment',
@@ -23,7 +23,7 @@ export const treatmentType = defineType({
       },
       validation: (Rule) => Rule.required(),
       components: {
-        input: SlugWithUrlInput,
+        input: createSlugWithUrlInput('kezelesek'),
       },
     }),
     defineField({
