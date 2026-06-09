@@ -6,7 +6,7 @@ export type SlugWithUrlInputProps = SlugInputProps & {
   basePath: string;
 };
 
-export const SlugWithUrlInput = (props: SlugWithUrlInputProps) => {
+const SlugWithUrlInput = (props: SlugWithUrlInputProps) => {
   const toast = useToast();
   const _id = useFormValue(['_id']) as string;
   const slug = props.value?.current;
