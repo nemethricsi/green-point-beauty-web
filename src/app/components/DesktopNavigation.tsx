@@ -91,12 +91,12 @@ export const DesktopNavigation = ({ navMenuItems }: DesktopNavigationProps) => {
                     <NavigationMenuContent>
                       <ul className="grid w-96 flex-col gap-2">
                         {menuItem.group.map(
-                          ({ name, slug, shortDescription, mainImage }) => (
+                          ({ name, slug, pageType, shortDescription, mainImage }) => (
                             <ListItem
                               key={slug}
                               title={name}
                               image={mainImage}
-                              href={`/kezelesek/${slug}`}
+                              href={pageType === 'customPage' ? `/p/${slug}` : `/kezelesek/${slug}`}
                             >
                               {shortDescription}
                             </ListItem>

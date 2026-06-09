@@ -81,6 +81,7 @@ const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
         name,
         shortDescription,
         "slug": slug.current,
+        "pageType": _type,
         mainImage
       }
     }
