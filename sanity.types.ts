@@ -22,7 +22,7 @@ export type Navigation = {
   navMenuItems?: Array<{
     label?: string;
     mode?: 'link' | 'group';
-    linkType?: 'internal' | 'external';
+    linkType?: 'internal' | 'external' | 'static';
     internalLink?:
       | {
           _ref: string;
@@ -37,6 +37,7 @@ export type Navigation = {
           [internalGroqTypeReferenceTo]?: 'customPage';
         };
     externalLink?: string;
+    staticPath?: string;
     referencedTreatments?: Array<{
       _ref: string;
       _type: 'reference';
@@ -471,9 +472,37 @@ export type CUSTOM_PAGE_QUERYResult = {
   }> | null;
 } | null;
 // Variable: NAVIGATION_QUERY
-// Query: *[_type == 'navigation'][0]{  navMenuItems[]{    _id,    label,    mode,    mode == 'link' && linkType == "external" => {      "link": {        "type": "external",        "url": externalLink      }    },    mode == "link" && linkType == "internal" => {      "link": {        "type": "internal",        "target": internalLink->{          name,          shortDescription,          "slug": slug.current,          "pageType": _type,          mainImage        }      }    },    mode == "group" => {      "group": referencedTreatments[]->{        name,        shortDescription,        "slug": slug.current,        "pageType": _type,        mainImage      }    }  }}
+// Query: *[_type == 'navigation'][0]{  navMenuItems[]{    _id,    label,    mode,    mode == 'link' && linkType == "external" => {      "link": {        "type": "external",        "url": externalLink      }    },    mode == "link" && linkType == "static" => {      "link": {        "type": "static",        "path": staticPath      }    },    mode == "link" && linkType == "internal" => {      "link": {        "type": "internal",        "target": internalLink->{          name,          shortDescription,          "slug": slug.current,          "pageType": _type,          mainImage        }      }    },    mode == "group" => {      "group": referencedTreatments[]->{        name,        shortDescription,        "slug": slug.current,        "pageType": _type,        mainImage      }    }  }}
 export type NAVIGATION_QUERYResult = {
   navMenuItems: Array<
+    | {
+        _id: null;
+        label: string | null;
+        mode: 'group' | 'link' | null;
+        link: {
+          type: 'static';
+          path: string | null;
+        };
+        group: Array<{
+          name: string | null;
+          shortDescription: string | null;
+          slug: string | null;
+          pageType: 'treatment';
+          mainImage: {
+            asset?: {
+              _ref: string;
+              _type: 'reference';
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+            };
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            _type: 'image';
+          } | null;
+        }> | null;
+      }
     | {
         _id: null;
         label: string | null;
@@ -580,6 +609,15 @@ export type NAVIGATION_QUERYResult = {
             _type: 'image';
           } | null;
         }> | null;
+      }
+    | {
+        _id: null;
+        label: string | null;
+        mode: 'group' | 'link' | null;
+        link: {
+          type: 'static';
+          path: string | null;
+        };
       }
     | {
         _id: null;
@@ -642,6 +680,6 @@ declare module '@sanity/client' {
     '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n  mainImage\n}': TREATMENTS_QUERYResult;
     '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details\n}': SINGLE_TREATMENT_QUERYResult;
     "*[_type == 'customPage' && slug.current == $slug][0]{\n  title,\n  content\n}": CUSTOM_PAGE_QUERYResult;
-    '*[_type == \'navigation\'][0]{\n  navMenuItems[]{\n    _id,\n    label,\n    mode,\n    mode == \'link\' && linkType == "external" => {\n      "link": {\n        "type": "external",\n        "url": externalLink\n      }\n    },\n    mode == "link" && linkType == "internal" => {\n      "link": {\n        "type": "internal",\n        "target": internalLink->{\n          name,\n          shortDescription,\n          "slug": slug.current,\n          "pageType": _type,\n          mainImage\n        }\n      }\n    },\n    mode == "group" => {\n      "group": referencedTreatments[]->{\n        name,\n        shortDescription,\n        "slug": slug.current,\n        "pageType": _type,\n        mainImage\n      }\n    }\n  }\n}': NAVIGATION_QUERYResult;
+    '*[_type == \'navigation\'][0]{\n  navMenuItems[]{\n    _id,\n    label,\n    mode,\n    mode == \'link\' && linkType == "external" => {\n      "link": {\n        "type": "external",\n        "url": externalLink\n      }\n    },\n    mode == "link" && linkType == "static" => {\n      "link": {\n        "type": "static",\n        "path": staticPath\n      }\n    },\n    mode == "link" && linkType == "internal" => {\n      "link": {\n        "type": "internal",\n        "target": internalLink->{\n          name,\n          shortDescription,\n          "slug": slug.current,\n          "pageType": _type,\n          mainImage\n        }\n      }\n    },\n    mode == "group" => {\n      "group": referencedTreatments[]->{\n        name,\n        shortDescription,\n        "slug": slug.current,\n        "pageType": _type,\n        mainImage\n      }\n    }\n  }\n}': NAVIGATION_QUERYResult;
   }
 }

@@ -64,6 +64,12 @@ const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
         "url": externalLink
       }
     },
+    mode == "link" && linkType == "static" => {
+      "link": {
+        "type": "static",
+        "path": staticPath
+      }
+    },
     mode == "link" && linkType == "internal" => {
       "link": {
         "type": "internal",

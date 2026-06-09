@@ -33,6 +33,15 @@ type ExternalLink = {
   };
 };
 
+type StaticLink = {
+  label: string;
+  mode: 'link';
+  link: {
+    type: 'static';
+    path: string;
+  };
+};
+
 type InternalLink = {
   label: string;
   mode: 'link';
@@ -48,7 +57,7 @@ type Collection = {
   group: NavTarget[];
 };
 
-export type NavMenuItemFromSanity = ExternalLink | InternalLink | Collection;
+export type NavMenuItemFromSanity = ExternalLink | StaticLink | InternalLink | Collection;
 
 type DesktopNavigationProps = {
   navMenuItems: NavMenuItemFromSanity[];
@@ -76,6 +85,17 @@ export const DesktopNavigation = ({ navMenuItems }: DesktopNavigationProps) => {
                         >
                           {menuItem.label}
                         </a>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )}
+                {menuItem.mode === 'link' &&
+                  menuItem.link.type === 'static' && (
+                    <NavigationMenuItem>
+                      <NavigationMenuLink
+                        asChild
+                        className={navigationMenuTriggerStyle()}
+                      >
+                        <Link href={menuItem.link.path}>{menuItem.label}</Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   )}

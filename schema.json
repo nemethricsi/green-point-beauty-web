@@ -77,6 +77,10 @@
                     {
                       "type": "string",
                       "value": "external"
+                    },
+                    {
+                      "type": "string",
+                      "value": "static"
                     }
                   ]
                 },
@@ -144,6 +148,13 @@
                 "optional": true
               },
               "externalLink": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "staticPath": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
