@@ -64,7 +64,7 @@ export const navigation = defineType({
               name: 'internalLink',
               title: 'Belső hivatkozás',
               type: 'reference',
-              to: [{ type: 'treatment' }],
+              to: [{ type: 'treatment' }, { type: 'customPage' }],
               hidden: ({ parent }) => parent?.linkType !== 'internal',
               validation: (Rule) =>
                 Rule.custom((value, context) => {
