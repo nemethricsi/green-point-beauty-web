@@ -2,7 +2,7 @@ import { defineType, defineField, defineArrayMember } from 'sanity';
 
 export const navigation = defineType({
   name: 'navigation',
-  title: 'Főmenü',
+  title: 'Navigáció',
   type: 'document',
   icon: () => '🔀',
   fields: [
@@ -47,6 +47,7 @@ export const navigation = defineType({
                 list: [
                   { title: 'Belső hivatkozás', value: 'internal' },
                   { title: 'Külső hivatkozás', value: 'external' },
+                  { title: 'Statikus belső oldal', value: 'static' },
                 ],
                 layout: 'radio',
               },
@@ -64,7 +65,7 @@ export const navigation = defineType({
               name: 'internalLink',
               title: 'Belső hivatkozás',
               type: 'reference',
-              to: [{ type: 'treatment' }],
+              to: [{ type: 'treatment' }, { type: 'customPage' }],
               hidden: ({ parent }) => parent?.linkType !== 'internal',
               validation: (Rule) =>
                 Rule.custom((value, context) => {
@@ -79,12 +80,28 @@ export const navigation = defineType({
               name: 'externalLink',
               title: 'Külső hivatkozás',
               type: 'url',
+              description: 'Teljes URL https-el, pl. https://www.greenpoint.hu',
               hidden: ({ parent }) => parent?.linkType !== 'external',
               validation: (Rule) =>
                 Rule.custom((value, context) => {
                   const parent = context.parent as { linkType: string };
                   if (parent?.linkType === 'external' && !value) {
                     return 'Add meg a külső URL-t!';
+                  }
+                  return true;
+                }),
+            }),
+            defineField({
+              name: 'staticPath',
+              title: 'Statikus útvonal',
+              type: 'string',
+              description: 'Pl. /arlista',
+              hidden: ({ parent }) => parent?.linkType !== 'static',
+              validation: (Rule) =>
+                Rule.custom((value, context) => {
+                  const parent = context.parent as { linkType: string };
+                  if (parent?.linkType === 'static' && !value) {
+                    return 'Add meg az útvonalat!';
                   }
                   return true;
                 }),
@@ -121,7 +138,7 @@ export const navigation = defineType({
   preview: {
     prepare() {
       return {
-        title: 'Főmenü',
+        title: 'Navigáció',
       };
     },
   },

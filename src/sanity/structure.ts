@@ -9,7 +9,7 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .id('navigation')
         .schemaType('navigation')
-        .title('Főmenü')
+        .title('Navigáció')
         .child(
           S.editor()
             .id('navigation')

@@ -16,9 +16,10 @@ import { urlFor } from '@/sanity/lib/image';
 // eslint-disable-next-line no-restricted-imports
 import { SanityImageAsset } from '../../../sanity.types';
 
-type TreatmentInNav = {
+type NavTarget = {
   name: string;
   slug: string;
+  pageType: 'treatment' | 'customPage';
   mainImage: SanityImageAsset;
   shortDescription: string;
 };
@@ -32,22 +33,31 @@ type ExternalLink = {
   };
 };
 
+type StaticLink = {
+  label: string;
+  mode: 'link';
+  link: {
+    type: 'static';
+    path: string;
+  };
+};
+
 type InternalLink = {
   label: string;
   mode: 'link';
   link: {
     type: 'internal';
-    target: TreatmentInNav;
+    target: NavTarget;
   };
 };
 
 type Collection = {
   mode: 'group';
   label: string;
-  group: TreatmentInNav[];
+  group: NavTarget[];
 };
 
-export type NavMenuItemFromSanity = ExternalLink | InternalLink | Collection;
+export type NavMenuItemFromSanity = ExternalLink | StaticLink | InternalLink | Collection;
 
 type DesktopNavigationProps = {
   navMenuItems: NavMenuItemFromSanity[];
@@ -79,17 +89,19 @@ export const DesktopNavigation = ({ navMenuItems }: DesktopNavigationProps) => {
                     </NavigationMenuItem>
                   )}
                 {menuItem.mode === 'link' &&
-                  menuItem.link.type === 'internal' && (
+                  menuItem.link.type === 'static' && (
                     <NavigationMenuItem>
                       <NavigationMenuLink
                         asChild
                         className={navigationMenuTriggerStyle()}
                       >
-                        <Link href={`/kezelesek/${menuItem.link.target.slug}`}>
-                          {menuItem.label}
-                        </Link>
+                        <Link href={menuItem.link.path}>{menuItem.label}</Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
+                  )}
+                {menuItem.mode === 'link' &&
+                  menuItem.link.type === 'internal' && (
+                    <InternalLinkComponent menuItem={menuItem as InternalLink} />
                   )}
                 {menuItem.mode === 'group' && (
                   <NavigationMenuItem>
@@ -99,12 +111,12 @@ export const DesktopNavigation = ({ navMenuItems }: DesktopNavigationProps) => {
                     <NavigationMenuContent>
                       <ul className="grid w-96 flex-col gap-2">
                         {menuItem.group.map(
-                          ({ name, slug, shortDescription, mainImage }) => (
+                          ({ name, slug, pageType, shortDescription, mainImage }) => (
                             <ListItem
                               key={slug}
                               title={name}
                               image={mainImage}
-                              href={`/kezelesek/${slug}`}
+                              href={pageType === 'customPage' ? `/p/${slug}` : `/kezelesek/${slug}`}
                             >
                               {shortDescription}
                             </ListItem>
@@ -158,5 +170,22 @@ function ListItem({
         </Link>
       </NavigationMenuLink>
     </li>
+  );
+}
+
+type InternalLinkComponentProps = {
+  menuItem: InternalLink;
+};
+
+function InternalLinkComponent({ menuItem }: InternalLinkComponentProps) {
+  const { slug, pageType } = menuItem.link.target;
+  const href = pageType === 'customPage' ? `/p/${slug}` : `/kezelesek/${slug}`;
+
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+        <Link href={href}>{menuItem.label}</Link>
+      </NavigationMenuLink>
+    </NavigationMenuItem>
   );
 }

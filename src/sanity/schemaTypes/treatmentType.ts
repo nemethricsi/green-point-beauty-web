@@ -1,6 +1,6 @@
 import { defineType, defineField } from 'sanity';
 
-import { SlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
+import { createSlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
 
 export const treatmentType = defineType({
   name: 'treatment',
@@ -23,7 +23,7 @@ export const treatmentType = defineType({
       },
       validation: (Rule) => Rule.required(),
       components: {
-        input: SlugWithUrlInput,
+        input: createSlugWithUrlInput('kezelesek'),
       },
     }),
     defineField({
@@ -58,6 +58,13 @@ export const treatmentType = defineType({
       title: 'Foglaló URL',
       description:
         'A kezelés URL-je pl. a Salonic oldalon. (Pl. https://green-point-beauty.salonic.hu/selectEmployee/?placeId=2522&serviceId=240582)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'category',
+      title: 'Kategória',
+      type: 'reference',
+      to: [{ type: 'treatmentCategory' }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({

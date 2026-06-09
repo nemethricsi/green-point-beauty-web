@@ -43,6 +43,16 @@ export const fetchTreatmentBySlug = async (slug: string) => {
   return sanityFetch({ query: SINGLE_TREATMENT_QUERY, params: { slug } });
 };
 
+const CUSTOM_PAGE_QUERY =
+  defineQuery(`*[_type == 'customPage' && slug.current == $slug][0]{
+  title,
+  content
+}`);
+
+export const fetchCustomPageBySlug = async (slug: string) => {
+  return sanityFetch({ query: CUSTOM_PAGE_QUERY, params: { slug } });
+};
+
 const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
   navMenuItems[]{
     _id,
@@ -54,6 +64,12 @@ const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
         "url": externalLink
       }
     },
+    mode == "link" && linkType == "static" => {
+      "link": {
+        "type": "static",
+        "path": staticPath
+      }
+    },
     mode == "link" && linkType == "internal" => {
       "link": {
         "type": "internal",
@@ -61,6 +77,7 @@ const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
           name,
           shortDescription,
           "slug": slug.current,
+          "pageType": _type,
           mainImage
         }
       }
@@ -70,6 +87,7 @@ const NAVIGATION_QUERY = defineQuery(`*[_type == 'navigation'][0]{
         name,
         shortDescription,
         "slug": slug.current,
+        "pageType": _type,
         mainImage
       }
     }

@@ -2,12 +2,17 @@ import { CopyIcon, LaunchIcon } from '@sanity/icons';
 import { Button, Card, Flex, Stack, Text, Tooltip, useToast } from '@sanity/ui';
 import { type SlugInputProps, useFormValue } from 'sanity';
 
-export const SlugWithUrlInput = (props: SlugInputProps) => {
+export type SlugWithUrlInputProps = SlugInputProps & {
+  basePath: string;
+};
+
+const SlugWithUrlInput = (props: SlugWithUrlInputProps) => {
   const toast = useToast();
   const _id = useFormValue(['_id']) as string;
   const slug = props.value?.current;
+  const basePath = props.basePath.replace(/^\/|\/$/g, '');
   const isPublished = _id && !_id.startsWith('drafts.');
-  const url = slug ? `${window.location.origin}/kezelesek/${slug}` : '';
+  const url = slug ? `${window.location.origin}/${basePath}/${slug}` : '';
 
   const handleCopy = () => {
     navigator.clipboard
@@ -76,3 +81,13 @@ export const SlugWithUrlInput = (props: SlugInputProps) => {
     </Stack>
   );
 };
+
+/**
+ * Returns a SlugWithUrlInput with a fixed basePath for use in schema definitions.
+ * Use this when you want the URL preview to show a specific path prefix (e.g. "p" for /p/slug).
+ */
+export function createSlugWithUrlInput(basePath: string) {
+  return function SlugWithUrlInputWithBasePath(props: SlugInputProps) {
+    return <SlugWithUrlInput {...props} basePath={basePath} />;
+  };
+}
