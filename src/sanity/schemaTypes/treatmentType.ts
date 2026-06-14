@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity';
+import { defineType, defineField, defineArrayMember } from 'sanity';
 
 import { createSlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
 
@@ -49,6 +49,51 @@ export const treatmentType = defineType({
           validation: (Rule) =>
             Rule.required().error('A kép alternatív szövege nem lehet üres!'),
           description: 'Egy leírás, hogy mi látható a képen.',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'variants',
+      title: 'Változatok (ár és időtartam)',
+      description:
+        'Itt lehet megadni, ha több időtartam van ugyanabból a kezelésből, vagy más típusok, amiknek más az ára.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'variant',
+          title: 'Változat',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Megnevezés',
+              type: 'string',
+              description: 'Pl. "60 perc", "90 perc"',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'duration',
+              title: 'Időtartam',
+              description: 'Időtartam PERCBEN megadva.',
+              type: 'number',
+              validation: (Rule) => Rule.required().positive().integer(),
+            }),
+            defineField({
+              name: 'price',
+              title: 'Ár (Ft)',
+              type: 'number',
+              validation: (Rule) => Rule.required().positive().integer(),
+            }),
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'price' },
+            prepare({ title, subtitle }) {
+              return {
+                title,
+                subtitle: subtitle ? `${subtitle} Ft` : undefined,
+              };
+            },
+          },
         }),
       ],
     }),
