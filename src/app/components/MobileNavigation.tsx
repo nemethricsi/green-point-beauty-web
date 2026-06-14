@@ -68,6 +68,16 @@ export const MobileNavigation = ({ navMenuItems }: MobileNavigationProps) => {
                             </a>
                           )}
                         {menuItem.mode === 'link' &&
+                          menuItem.link.type === 'static' && (
+                            <Link
+                              href={menuItem.link.path}
+                              className="text-fuego-900 flex w-full items-center justify-between px-2 py-3 font-serif font-medium"
+                            >
+                              {menuItem.label}
+                              <ArrowRightIcon className="text-fuego-700 size-6" />
+                            </Link>
+                          )}
+                        {menuItem.mode === 'link' &&
                           menuItem.link.type === 'internal' && (
                             <Link
                               href={`/kezelesek/${menuItem.link.target.slug}`}
