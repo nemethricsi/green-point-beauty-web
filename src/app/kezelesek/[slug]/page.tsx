@@ -8,6 +8,7 @@ import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
 import { components } from '@/app/components/PortableTextComponents';
+import { cn, formatPrice } from '@/lib/utils';
 import { fetchNavigation, fetchTreatmentBySlug } from '@/sanity/lib/queries';
 
 export default async function KezelesPage({
@@ -30,7 +31,7 @@ export default async function KezelesPage({
     notFound();
   }
 
-  const { name, bookingUrl, shortDescription, details } = treatment;
+  const { name, bookingUrl, shortDescription, details, variants } = treatment;
 
   return (
     <>
@@ -52,6 +53,29 @@ export default async function KezelesPage({
               </h1>
               <div className="text-fuego-900 bg-fuego-100 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">
                 <p>{shortDescription}</p>
+                {variants && variants.length > 0 && (
+                  <div className="flex flex-col gap-1">
+                    {variants.map((variant, index) => (
+                      <div
+                        key={variant._key}
+                        className={cn(
+                          'flex items-baseline gap-2',
+                          index < variants.length - 1 && 'pb-1',
+                        )}
+                      >
+                        <span className="text-fuego-700 text-sm">
+                          {variant.label}
+                        </span>
+                        <div className="border-fuego-300 flex-1 border-b border-dashed" />
+                        <span className="text-fuego-900 text-sm font-medium tabular-nums">
+                          {variant.price != null
+                            ? formatPrice(variant.price)
+                            : '—'}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <Link
                   href={bookingUrl}
                   target="_blank"

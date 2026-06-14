@@ -36,11 +36,37 @@ const SINGLE_TREATMENT_QUERY = defineQuery(`*[
   name,
   shortDescription,
   bookingUrl,
-  details
+  details,
+  variants[] {
+    _key,
+    label,
+    duration,
+    price
+  }
 }`);
 
 export const fetchTreatmentBySlug = async (slug: string) => {
   return sanityFetch({ query: SINGLE_TREATMENT_QUERY, params: { slug } });
+};
+
+const PRICING_PAGE_QUERY = defineQuery(`*[_type == "treatmentCategory"] | order(name asc) {
+  "id": _id,
+  name,
+  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {
+    "id": _id,
+    name,
+    bookingUrl,
+    variants[] {
+      _key,
+      label,
+      duration,
+      price
+    }
+  }
+}`);
+
+export const fetchPricingPage = async () => {
+  return sanityFetch({ query: PRICING_PAGE_QUERY });
 };
 
 const CUSTOM_PAGE_QUERY =
