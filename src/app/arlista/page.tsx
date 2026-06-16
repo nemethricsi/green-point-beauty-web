@@ -39,9 +39,14 @@ export default async function PriceListPage() {
                         className="flex flex-col gap-2 py-4"
                       >
                         <div className="flex items-center justify-between gap-4">
-                          <span className="text-fuego-900 font-semibold">
-                            {treatment.name}
-                          </span>
+                          {treatment.name && treatment.slug && (
+                            <Link
+                              href={`/kezelesek/${treatment.slug.current}`}
+                              className="text-fuego-900 font-semibold underline-offset-4 hover:underline"
+                            >
+                              {treatment.name}
+                            </Link>
+                          )}
                           {treatment.bookingUrl && (
                             <Link
                               href={treatment.bookingUrl}

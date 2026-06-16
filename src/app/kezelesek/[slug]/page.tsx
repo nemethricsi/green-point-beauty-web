@@ -51,7 +51,7 @@ export default async function KezelesPage({
               <h1 className="text-fuego-900 font-serif text-3xl font-bold lg:text-5xl">
                 {name}
               </h1>
-              <div className="text-fuego-900 bg-fuego-100 border-fuego-300 flex max-w-2xl flex-col gap-6 rounded-md border p-4 lg:text-lg">
+              <div className="text-fuego-800 border-fuego-200 flex max-w-2xl flex-col gap-6 rounded-md border bg-white/60 p-4 lg:text-lg">
                 <p>{shortDescription}</p>
                 {variants && variants.length > 0 && (
                   <div className="flex flex-col gap-1">
