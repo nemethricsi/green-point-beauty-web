@@ -1,6 +1,8 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
+import { urlFor } from '@/sanity/lib/image';
+import { fetchCustomPageBySlug, fetchHomePage } from '@/sanity/lib/queries';
+
 export const alt = 'Green Point Beauty';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -11,6 +13,16 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  const [{ data: pageData }, { data: homePage }] = await Promise.all([
+    fetchCustomPageBySlug(slug),
+    fetchHomePage(),
+  ]);
+
+  const imageSource = pageData?.seoImage ?? homePage?.defaultOgImage;
+  const imageUrl = imageSource
+    ? urlFor(imageSource).width(1200).height(630).fit('crop').url()
+    : null;
 
   return new ImageResponse(
     (
@@ -26,7 +38,16 @@ export default async function Image({
           fontWeight: 700,
         }}
       >
-        {slug}
+        {imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={imageUrl}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            alt=""
+          />
+        ) : (
+          <span>Green Point Beauty</span>
+        )}
       </div>
     ),
     { ...size },

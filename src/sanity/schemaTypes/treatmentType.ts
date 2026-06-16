@@ -135,7 +135,7 @@ export const treatmentType = defineType({
     defineField({
       name: 'seoTitle',
       title: 'SEO cím',
-      description: 'Ha üresen hagyod, a kezelés neve lesz a cím.',
+      description: 'Ha üresen hagyod, a kezelés neve lesz a cím. Céld az 50–60 karaktert a SERP-tér optimális kihasználásához.',
       type: 'string',
       group: 'seo',
       components: { input: createPrefilledInput('name') },
@@ -143,7 +143,7 @@ export const treatmentType = defineType({
     defineField({
       name: 'seoDescription',
       title: 'SEO leírás',
-      description: 'Max. 160 karakter.',
+      description: 'Céld a 120–160 karaktert a keresési találat szövegének maximális kihasználásához.',
       type: 'text',
       rows: 3,
       validation: (Rule) => Rule.max(160),
