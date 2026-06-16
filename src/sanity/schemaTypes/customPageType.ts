@@ -7,13 +7,17 @@ export const customPageType = defineType({
   title: 'Egyedi landing oldalak',
   type: 'document',
   icon: () => '📄',
-  groups: [{ name: 'seo', title: 'SEO' }],
+  groups: [
+    { name: 'content', title: 'Tartalom', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Cím',
       type: 'string',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -26,6 +30,7 @@ export const customPageType = defineType({
       components: {
         input: createSlugWithUrlInput('p'),
       },
+      group: 'content',
     }),
     defineField({
       name: 'content',
@@ -33,6 +38,7 @@ export const customPageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'seoTitle',

@@ -7,13 +7,17 @@ export const treatmentType = defineType({
   title: 'Kezelések',
   type: 'document',
   icon: () => '💆‍♀️',
-  groups: [{ name: 'seo', title: 'SEO' }],
+  groups: [
+    { name: 'content', title: 'Tartalom', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'name',
       type: 'string',
       title: 'Név',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -26,6 +30,7 @@ export const treatmentType = defineType({
       components: {
         input: createSlugWithUrlInput('kezelesek'),
       },
+      group: 'content',
     }),
     defineField({
       name: 'shortDescription',
@@ -33,6 +38,7 @@ export const treatmentType = defineType({
       title: 'Rövid leírás (max. 160 karakter)',
       rows: 3,
       validation: (Rule) => Rule.max(160).required(),
+      group: 'content',
     }),
     defineField({
       name: 'mainImage',
@@ -52,6 +58,7 @@ export const treatmentType = defineType({
           description: 'Egy leírás, hogy mi látható a képen.',
         }),
       ],
+      group: 'content',
     }),
     defineField({
       name: 'variants',
@@ -97,6 +104,7 @@ export const treatmentType = defineType({
           },
         }),
       ],
+      group: 'content',
     }),
     defineField({
       name: 'bookingUrl',
@@ -105,6 +113,7 @@ export const treatmentType = defineType({
       description:
         'A kezelés URL-je pl. a Salonic oldalon. (Pl. https://green-point-beauty.salonic.hu/selectEmployee/?placeId=2522&serviceId=240582)',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'category',
@@ -112,6 +121,7 @@ export const treatmentType = defineType({
       type: 'reference',
       to: [{ type: 'treatmentCategory' }],
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'details',
@@ -119,6 +129,7 @@ export const treatmentType = defineType({
       title: 'Részletes leírás',
       of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'seoTitle',
