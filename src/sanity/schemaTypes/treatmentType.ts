@@ -1,5 +1,6 @@
 import { defineType, defineField, defineArrayMember } from 'sanity';
 
+import { createPrefilledInput } from '@/sanity/schemaTypes/components/PrefilledInput';
 import { createSlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
 
 export const treatmentType = defineType({
@@ -137,6 +138,7 @@ export const treatmentType = defineType({
       description: 'Ha üresen hagyod, a kezelés neve lesz a cím.',
       type: 'string',
       group: 'seo',
+      components: { input: createPrefilledInput('name') },
     }),
     defineField({
       name: 'seoDescription',
@@ -146,6 +148,7 @@ export const treatmentType = defineType({
       rows: 3,
       validation: (Rule) => Rule.max(160),
       group: 'seo',
+      components: { input: createPrefilledInput('shortDescription') },
     }),
     defineField({
       name: 'seoImage',
