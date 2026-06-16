@@ -1,4 +1,5 @@
 import { CalendarHeartIcon } from 'lucide-react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -14,6 +15,29 @@ import {
   fetchNavigation,
   fetchTreatments,
 } from '@/sanity/lib/queries';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { data } = await fetchHomePage();
+  const title = data?.seoTitle ?? (data?.headline ? `${data.headline} • Green Point Beauty` : undefined);
+  const description = data?.seoDescription ?? data?.subheading ?? undefined;
+  return {
+    title: title ? { absolute: title } : undefined,
+    description,
+    alternates: { canonical: '/' },
+    openGraph: {
+      siteName: 'Green Point Beauty',
+      locale: 'hu_HU',
+      type: 'website',
+      url: '/',
+      title: title ?? 'Green Point Beauty',
+      description,
+    },
+    twitter: {
+      title: title ?? 'Green Point Beauty',
+      description,
+    },
+  };
+}
 
 export default async function Home() {
   const { data: homePageData } = await fetchHomePage();

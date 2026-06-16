@@ -8,6 +8,8 @@ const HOME_PAGE_QUERY = defineQuery(`*[_type == 'homePage'][0]{
   image,
   ctaLabel,
   defaultOgImage,
+  seoTitle,
+  seoDescription,
 }`);
 
 export const fetchHomePage = async () => {
