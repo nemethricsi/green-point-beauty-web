@@ -41,5 +41,17 @@ export const homePage = defineType({
       type: 'string',
       title: 'Call To Action gomb szövege',
     }),
+    defineField({
+      name: 'defaultOgImage',
+      title: 'Alapértelmezett OG / Share kép',
+      description:
+        'Ideális méret: 1200×630px (1.91:1 arány). Ez jelenik meg minden olyan oldalon, ahol nincs saját kép beállítva.',
+      type: 'image',
+      options: {
+        hotspot: {
+          previews: [{ title: 'OG / Share (1.91:1)', aspectRatio: 1200 / 630 }],
+        },
+      },
+    }),
   ],
 });

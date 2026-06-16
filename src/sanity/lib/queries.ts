@@ -7,6 +7,7 @@ const HOME_PAGE_QUERY = defineQuery(`*[_type == 'homePage'][0]{
   subheading,
   image,
   ctaLabel,
+  defaultOgImage,
 }`);
 
 export const fetchHomePage = async () => {
@@ -42,7 +43,10 @@ const SINGLE_TREATMENT_QUERY = defineQuery(`*[
     label,
     duration,
     price
-  }
+  },
+  seoTitle,
+  seoDescription,
+  seoImage
 }`);
 
 export const fetchTreatmentBySlug = async (slug: string) => {
@@ -74,7 +78,10 @@ export const fetchPricingPage = async () => {
 const CUSTOM_PAGE_QUERY =
   defineQuery(`*[_type == 'customPage' && slug.current == $slug][0]{
   title,
-  content
+  content,
+  seoTitle,
+  seoDescription,
+  seoImage
 }`);
 
 export const fetchCustomPageBySlug = async (slug: string) => {

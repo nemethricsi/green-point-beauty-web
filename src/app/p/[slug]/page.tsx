@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PortableText } from 'next-sanity';
 
@@ -7,11 +8,25 @@ import { Footer } from '@/app/components/Footer';
 import { components } from '@/app/components/PortableTextComponents';
 import { fetchCustomPageBySlug } from '@/sanity/lib/queries';
 
-export default async function CustomPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const { data: pageData } = await fetchCustomPageBySlug(slug);
+  if (!pageData) return {};
+  const url = `/p/${slug}`;
+  const title = pageData.seoTitle ?? pageData.title ?? undefined;
+  const description = pageData.seoDescription ?? undefined;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: 'article', url, title, description },
+    twitter: { title, description, images: [`${url}/opengraph-image`] },
+  };
+}
+
+export default async function CustomPage({ params }: Props) {
   const { slug } = await params;
 
   const { data: pageData } = await fetchCustomPageBySlug(slug);

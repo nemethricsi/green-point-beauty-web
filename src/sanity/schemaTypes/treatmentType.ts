@@ -1,5 +1,6 @@
 import { defineType, defineField, defineArrayMember } from 'sanity';
 
+import { createPrefilledInput } from '@/sanity/schemaTypes/components/PrefilledInput';
 import { createSlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
 
 export const treatmentType = defineType({
@@ -7,12 +8,17 @@ export const treatmentType = defineType({
   title: 'Kezelések',
   type: 'document',
   icon: () => '💆‍♀️',
+  groups: [
+    { name: 'content', title: 'Tartalom', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'name',
       type: 'string',
       title: 'Név',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'slug',
@@ -25,6 +31,7 @@ export const treatmentType = defineType({
       components: {
         input: createSlugWithUrlInput('kezelesek'),
       },
+      group: 'content',
     }),
     defineField({
       name: 'shortDescription',
@@ -32,6 +39,7 @@ export const treatmentType = defineType({
       title: 'Rövid leírás (max. 160 karakter)',
       rows: 3,
       validation: (Rule) => Rule.max(160).required(),
+      group: 'content',
     }),
     defineField({
       name: 'mainImage',
@@ -51,6 +59,7 @@ export const treatmentType = defineType({
           description: 'Egy leírás, hogy mi látható a képen.',
         }),
       ],
+      group: 'content',
     }),
     defineField({
       name: 'variants',
@@ -96,6 +105,7 @@ export const treatmentType = defineType({
           },
         }),
       ],
+      group: 'content',
     }),
     defineField({
       name: 'bookingUrl',
@@ -104,6 +114,7 @@ export const treatmentType = defineType({
       description:
         'A kezelés URL-je pl. a Salonic oldalon. (Pl. https://green-point-beauty.salonic.hu/selectEmployee/?placeId=2522&serviceId=240582)',
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'category',
@@ -111,6 +122,7 @@ export const treatmentType = defineType({
       type: 'reference',
       to: [{ type: 'treatmentCategory' }],
       validation: (Rule) => Rule.required(),
+      group: 'content',
     }),
     defineField({
       name: 'details',
@@ -118,6 +130,38 @@ export const treatmentType = defineType({
       title: 'Részletes leírás',
       of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
       validation: (Rule) => Rule.required(),
+      group: 'content',
+    }),
+    defineField({
+      name: 'seoTitle',
+      title: 'SEO cím',
+      description: 'Ha üresen hagyod, a kezelés neve lesz a cím.',
+      type: 'string',
+      group: 'seo',
+      components: { input: createPrefilledInput('name') },
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'SEO leírás',
+      description: 'Max. 160 karakter.',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(160),
+      group: 'seo',
+      components: { input: createPrefilledInput('shortDescription') },
+    }),
+    defineField({
+      name: 'seoImage',
+      title: 'OG / Share kép',
+      description:
+        'Ideális méret: 1200×630px (1.91:1 arány). Ha üresen hagyod, az alapértelmezett kép jelenik meg.',
+      type: 'image',
+      options: {
+        hotspot: {
+          previews: [{ title: 'OG / Share (1.91:1)', aspectRatio: 1200 / 630 }],
+        },
+      },
+      group: 'seo',
     }),
   ],
 });
