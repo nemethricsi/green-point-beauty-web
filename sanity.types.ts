@@ -462,13 +462,14 @@ export type SINGLE_TREATMENT_QUERYResult = {
   }> | null;
 } | null;
 // Variable: PRICING_PAGE_QUERY
-// Query: *[_type == "treatmentCategory"] | order(name asc) {  "id": _id,  name,  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {    "id": _id,    name,    bookingUrl,    variants[] {      _key,      label,      duration,      price    }  }}
+// Query: *[_type == "treatmentCategory"] | order(name asc) {  "id": _id,  name,  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {    "id": _id,    name,    slug,    bookingUrl,    variants[] {      _key,      label,      duration,      price    }  }}
 export type PRICING_PAGE_QUERYResult = Array<{
   id: string;
   name: string | null;
   treatments: Array<{
     id: string;
     name: string | null;
+    slug: Slug | null;
     bookingUrl: string | null;
     variants: Array<{
       _key: string;
@@ -709,7 +710,7 @@ declare module '@sanity/client' {
     "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
     '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n  mainImage\n}': TREATMENTS_QUERYResult;
     '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details,\n  variants[] {\n    _key,\n    label,\n    duration,\n    price\n  }\n}': SINGLE_TREATMENT_QUERYResult;
-    '*[_type == "treatmentCategory"] | order(name asc) {\n  "id": _id,\n  name,\n  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {\n    "id": _id,\n    name,\n    bookingUrl,\n    variants[] {\n      _key,\n      label,\n      duration,\n      price\n    }\n  }\n}': PRICING_PAGE_QUERYResult;
+    '*[_type == "treatmentCategory"] | order(name asc) {\n  "id": _id,\n  name,\n  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {\n    "id": _id,\n    name,\n    slug,\n    bookingUrl,\n    variants[] {\n      _key,\n      label,\n      duration,\n      price\n    }\n  }\n}': PRICING_PAGE_QUERYResult;
     "*[_type == 'customPage' && slug.current == $slug][0]{\n  title,\n  content\n}": CUSTOM_PAGE_QUERYResult;
     '*[_type == \'navigation\'][0]{\n  navMenuItems[]{\n    _id,\n    label,\n    mode,\n    mode == \'link\' && linkType == "external" => {\n      "link": {\n        "type": "external",\n        "url": externalLink\n      }\n    },\n    mode == "link" && linkType == "static" => {\n      "link": {\n        "type": "static",\n        "path": staticPath\n      }\n    },\n    mode == "link" && linkType == "internal" => {\n      "link": {\n        "type": "internal",\n        "target": internalLink->{\n          name,\n          shortDescription,\n          "slug": slug.current,\n          "pageType": _type,\n          mainImage\n        }\n      }\n    },\n    mode == "group" => {\n      "group": referencedTreatments[]->{\n        name,\n        shortDescription,\n        "slug": slug.current,\n        "pageType": _type,\n        mainImage\n      }\n    }\n  }\n}': NAVIGATION_QUERYResult;
   }

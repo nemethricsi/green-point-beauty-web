@@ -49,12 +49,14 @@ export const fetchTreatmentBySlug = async (slug: string) => {
   return sanityFetch({ query: SINGLE_TREATMENT_QUERY, params: { slug } });
 };
 
-const PRICING_PAGE_QUERY = defineQuery(`*[_type == "treatmentCategory"] | order(name asc) {
+const PRICING_PAGE_QUERY =
+  defineQuery(`*[_type == "treatmentCategory"] | order(name asc) {
   "id": _id,
   name,
   "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {
     "id": _id,
     name,
+    slug,
     bookingUrl,
     variants[] {
       _key,
