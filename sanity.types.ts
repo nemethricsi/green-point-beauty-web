@@ -76,6 +76,20 @@ export type CustomPage = {
     _type: 'block';
     _key: string;
   }>;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
 };
 
 export type Treatment = {
@@ -155,6 +169,20 @@ export type Treatment = {
         _key: string;
       }
   >;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
 };
 
 export type TreatmentCategory = {
@@ -189,6 +217,18 @@ export type HomePage = {
     _type: 'image';
   };
   ctaLabel?: string;
+  defaultOgImage?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
 };
 
 export type BlockContent = Array<
@@ -365,7 +405,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == 'homePage'][0]{  headline,  subheading,  image,  ctaLabel,}
+// Query: *[_type == 'homePage'][0]{  headline,  subheading,  image,  ctaLabel,  defaultOgImage,}
 export type HOME_PAGE_QUERYResult = {
   headline: string | null;
   subheading: string | null;
@@ -383,6 +423,18 @@ export type HOME_PAGE_QUERYResult = {
     _type: 'image';
   } | null;
   ctaLabel: string | null;
+  defaultOgImage: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
 } | null;
 // Variable: TREATMENTS_QUERY
 // Query: *[  _type == 'treatment']{  "id":_id,  name,  "slug":slug.current,  shortDescription,  bookingUrl,  mainImage}
@@ -407,7 +459,7 @@ export type TREATMENTS_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: SINGLE_TREATMENT_QUERY
-// Query: *[  _type == 'treatment' &&  slug.current == $slug][0]{  "id":_id,  name,  shortDescription,  bookingUrl,  details,  variants[] {    _key,    label,    duration,    price  }}
+// Query: *[  _type == 'treatment' &&  slug.current == $slug][0]{  "id":_id,  name,  shortDescription,  bookingUrl,  details,  variants[] {    _key,    label,    duration,    price  },  seoTitle,  seoDescription,  seoImage}
 export type SINGLE_TREATMENT_QUERYResult = {
   id: string;
   name: string | null;
@@ -460,6 +512,20 @@ export type SINGLE_TREATMENT_QUERYResult = {
     duration: number | null;
     price: number | null;
   }> | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  seoImage: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
 } | null;
 // Variable: PRICING_PAGE_QUERY
 // Query: *[_type == "treatmentCategory"] | order(name asc) {  "id": _id,  name,  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {    "id": _id,    name,    slug,    bookingUrl,    variants[] {      _key,      label,      duration,      price    }  }}
@@ -480,7 +546,7 @@ export type PRICING_PAGE_QUERYResult = Array<{
   }>;
 }>;
 // Variable: CUSTOM_PAGE_QUERY
-// Query: *[_type == 'customPage' && slug.current == $slug][0]{  title,  content}
+// Query: *[_type == 'customPage' && slug.current == $slug][0]{  title,  content,  seoTitle,  seoDescription,  seoImage}
 export type CUSTOM_PAGE_QUERYResult = {
   title: string | null;
   content: Array<{
@@ -501,6 +567,20 @@ export type CUSTOM_PAGE_QUERYResult = {
     _type: 'block';
     _key: string;
   }> | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  seoImage: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
 } | null;
 // Variable: NAVIGATION_QUERY
 // Query: *[_type == 'navigation'][0]{  navMenuItems[]{    _id,    label,    mode,    mode == 'link' && linkType == "external" => {      "link": {        "type": "external",        "url": externalLink      }    },    mode == "link" && linkType == "static" => {      "link": {        "type": "static",        "path": staticPath      }    },    mode == "link" && linkType == "internal" => {      "link": {        "type": "internal",        "target": internalLink->{          name,          shortDescription,          "slug": slug.current,          "pageType": _type,          mainImage        }      }    },    mode == "group" => {      "group": referencedTreatments[]->{        name,        shortDescription,        "slug": slug.current,        "pageType": _type,        mainImage      }    }  }}
@@ -707,11 +787,11 @@ export type NAVIGATION_QUERYResult = {
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n}": HOME_PAGE_QUERYResult;
+    "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n  defaultOgImage,\n}": HOME_PAGE_QUERYResult;
     '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n  mainImage\n}': TREATMENTS_QUERYResult;
-    '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details,\n  variants[] {\n    _key,\n    label,\n    duration,\n    price\n  }\n}': SINGLE_TREATMENT_QUERYResult;
+    '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details,\n  variants[] {\n    _key,\n    label,\n    duration,\n    price\n  },\n  seoTitle,\n  seoDescription,\n  seoImage\n}': SINGLE_TREATMENT_QUERYResult;
     '*[_type == "treatmentCategory"] | order(name asc) {\n  "id": _id,\n  name,\n  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {\n    "id": _id,\n    name,\n    slug,\n    bookingUrl,\n    variants[] {\n      _key,\n      label,\n      duration,\n      price\n    }\n  }\n}': PRICING_PAGE_QUERYResult;
-    "*[_type == 'customPage' && slug.current == $slug][0]{\n  title,\n  content\n}": CUSTOM_PAGE_QUERYResult;
+    "*[_type == 'customPage' && slug.current == $slug][0]{\n  title,\n  content,\n  seoTitle,\n  seoDescription,\n  seoImage\n}": CUSTOM_PAGE_QUERYResult;
     '*[_type == \'navigation\'][0]{\n  navMenuItems[]{\n    _id,\n    label,\n    mode,\n    mode == \'link\' && linkType == "external" => {\n      "link": {\n        "type": "external",\n        "url": externalLink\n      }\n    },\n    mode == "link" && linkType == "static" => {\n      "link": {\n        "type": "static",\n        "path": staticPath\n      }\n    },\n    mode == "link" && linkType == "internal" => {\n      "link": {\n        "type": "internal",\n        "target": internalLink->{\n          name,\n          shortDescription,\n          "slug": slug.current,\n          "pageType": _type,\n          mainImage\n        }\n      }\n    },\n    mode == "group" => {\n      "group": referencedTreatments[]->{\n        name,\n        shortDescription,\n        "slug": slug.current,\n        "pageType": _type,\n        mainImage\n      }\n    }\n  }\n}': NAVIGATION_QUERYResult;
   }
 }

@@ -7,6 +7,7 @@ export const customPageType = defineType({
   title: 'Egyedi landing oldalak',
   type: 'document',
   icon: () => '📄',
+  groups: [{ name: 'seo', title: 'SEO' }],
   fields: [
     defineField({
       name: 'title',
@@ -32,6 +33,35 @@ export const customPageType = defineType({
       type: 'array',
       of: [{ type: 'block' }],
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'seoTitle',
+      title: 'SEO cím',
+      description: 'Ha üresen hagyod, az oldal címe lesz a SEO cím.',
+      type: 'string',
+      group: 'seo',
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'SEO leírás',
+      description: 'Max. 160 karakter.',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(160),
+      group: 'seo',
+    }),
+    defineField({
+      name: 'seoImage',
+      title: 'OG / Share kép',
+      description:
+        'Ideális méret: 1200×630px (1.91:1 arány). Ha üresen hagyod, az alapértelmezett kép jelenik meg.',
+      type: 'image',
+      options: {
+        hotspot: {
+          previews: [{ title: 'OG / Share (1.91:1)', aspectRatio: 1200 / 630 }],
+        },
+      },
+      group: 'seo',
     }),
   ],
 });

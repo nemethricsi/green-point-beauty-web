@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, ArrowRightIcon, CalendarHeartIcon } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PortableText } from 'next-sanity';
@@ -11,11 +12,26 @@ import { components } from '@/app/components/PortableTextComponents';
 import { cn, formatPrice } from '@/lib/utils';
 import { fetchNavigation, fetchTreatmentBySlug } from '@/sanity/lib/queries';
 
-export default async function KezelesPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const { data: treatment } = await fetchTreatmentBySlug(slug);
+  if (!treatment) return {};
+  const url = `/kezelesek/${slug}`;
+  const title = treatment.seoTitle ?? treatment.name ?? undefined;
+  const description =
+    treatment.seoDescription ?? treatment.shortDescription ?? undefined;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: 'article', url, title, description },
+    twitter: { title, description, images: [`${url}/opengraph-image`] },
+  };
+}
+
+export default async function KezelesPage({ params }: Props) {
   const { slug } = await params;
 
   const { data: treatment } = await fetchTreatmentBySlug(slug);

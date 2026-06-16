@@ -1,6 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { BackgroundShapes } from '@/app/components/BackgroundShapes';
+
+export const metadata: Metadata = {
+  title: 'Árlista',
+  description: 'TODO: price list description',
+  alternates: { canonical: '/arlista' },
+  openGraph: { type: 'website', url: '/arlista', title: 'Árlista' },
+  twitter: { title: 'Árlista', images: ['/opengraph-image'] },
+};
 import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';

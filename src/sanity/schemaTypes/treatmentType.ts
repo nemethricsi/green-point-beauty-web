@@ -7,6 +7,7 @@ export const treatmentType = defineType({
   title: 'Kezelések',
   type: 'document',
   icon: () => '💆‍♀️',
+  groups: [{ name: 'seo', title: 'SEO' }],
   fields: [
     defineField({
       name: 'name',
@@ -118,6 +119,35 @@ export const treatmentType = defineType({
       title: 'Részletes leírás',
       of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'seoTitle',
+      title: 'SEO cím',
+      description: 'Ha üresen hagyod, a kezelés neve lesz a cím.',
+      type: 'string',
+      group: 'seo',
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'SEO leírás',
+      description: 'Max. 160 karakter.',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(160),
+      group: 'seo',
+    }),
+    defineField({
+      name: 'seoImage',
+      title: 'OG / Share kép',
+      description:
+        'Ideális méret: 1200×630px (1.91:1 arány). Ha üresen hagyod, az alapértelmezett kép jelenik meg.',
+      type: 'image',
+      options: {
+        hotspot: {
+          previews: [{ title: 'OG / Share (1.91:1)', aspectRatio: 1200 / 630 }],
+        },
+      },
+      group: 'seo',
     }),
   ],
 });

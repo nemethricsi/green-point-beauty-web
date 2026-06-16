@@ -22,8 +22,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Green Point Beauty',
+  title: {
+    template: '%s | Green Point Beauty',
+    default: 'Green Point Beauty',
+  },
   description: 'Beauty, cosmetic & personal care',
+  metadataBase: new URL('https://green-point-beauty.vercel.app/'),
+  alternates: { canonical: '/' },
+  openGraph: {
+    siteName: 'Green Point Beauty',
+    locale: 'hu_HU',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function RootLayout({
