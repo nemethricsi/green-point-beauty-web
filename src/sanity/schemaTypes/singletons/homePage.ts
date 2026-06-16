@@ -52,6 +52,7 @@ export const homePage = defineType({
           previews: [{ title: 'OG / Share (1.91:1)', aspectRatio: 1200 / 630 }],
         },
       },
+      validation: (Rule) => Rule.required(),
     }),
   ],
 });
