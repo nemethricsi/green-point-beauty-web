@@ -69,7 +69,7 @@ export const homePage = defineType({
       name: 'seoDescription',
       title: 'SEO leírás',
       description:
-        'Céld a 120–160 karaktert a keresési találat szövegének maximális kihasználásához.',
+        'Céld a 80-125 karaktert a keresési találat szövegének maximális kihasználásához.',
       type: 'text',
       rows: 3,
       validation: (Rule) => Rule.max(160),

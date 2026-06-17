@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'TODO: price list description',
   alternates: { canonical: '/arlista' },
   openGraph: { siteName: 'Green Point Beauty', locale: 'hu_HU', type: 'website', url: '/arlista', title: 'Árlista' },
-  twitter: { title: 'Árlista', images: ['/opengraph-image'] },
+  twitter: { card: 'summary_large_image', title: 'Árlista', images: ['/opengraph-image'] },
 };
 import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';

@@ -33,6 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
     },
     twitter: {
+      card: 'summary_large_image',
       title: title ?? 'Green Point Beauty',
       description,
     },

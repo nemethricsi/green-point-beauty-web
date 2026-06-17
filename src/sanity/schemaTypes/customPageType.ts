@@ -43,14 +43,16 @@ export const customPageType = defineType({
     defineField({
       name: 'seoTitle',
       title: 'SEO cím',
-      description: 'Ha üresen hagyod, az oldal címe lesz a SEO cím. Céld az 50–60 karaktert a SERP-tér optimális kihasználásához.',
+      description:
+        'Ha üresen hagyod, az oldal címe lesz a SEO cím. Céld az 50–60 karaktert a SERP-tér optimális kihasználásához.',
       type: 'string',
       group: 'seo',
     }),
     defineField({
       name: 'seoDescription',
       title: 'SEO leírás',
-      description: 'Céld a 120–160 karaktert a keresési találat szövegének maximális kihasználásához.',
+      description:
+        'Céld a 80-125 karaktert a keresési találat szövegének maximális kihasználásához.',
       type: 'text',
       rows: 3,
       validation: (Rule) => Rule.max(160),

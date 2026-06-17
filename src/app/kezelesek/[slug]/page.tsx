@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: { canonical: url },
     openGraph: { siteName: 'Green Point Beauty', locale: 'hu_HU', type: 'article', url, title, description },
-    twitter: { title, description, images: [`${url}/opengraph-image`] },
+    twitter: { card: 'summary_large_image', title, description, images: [`${url}/opengraph-image`] },
   };
 }
 
