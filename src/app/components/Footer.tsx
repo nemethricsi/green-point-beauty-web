@@ -4,6 +4,7 @@ import { type IconType } from 'react-icons';
 import { SiFacebook, SiGmail, SiInstagram } from 'react-icons/si';
 
 import { Container } from '@/app/components/Container';
+import { SITE_NAME } from '@/lib/constants';
 
 export const Footer = () => {
   return (
@@ -22,7 +23,7 @@ export const Footer = () => {
         </div>
         <div className="border-fuego-800 text-fuego-100 mt-2.5 border-t pt-5 lg:border-t-0 lg:pt-0">
           <p className="font-medium">
-            &#169; Green Point Beauty 2013 - {new Date().getFullYear()}
+            &#169; {SITE_NAME} 2013 - {new Date().getFullYear()}
           </p>
         </div>
       </Container>

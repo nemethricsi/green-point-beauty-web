@@ -7,6 +7,7 @@ import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { components } from '@/app/components/PortableTextComponents';
 import { fetchCustomPageBySlug } from '@/sanity/lib/queries';
+import { SITE_NAME } from '@/lib/constants';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -21,8 +22,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { siteName: 'Green Point Beauty', locale: 'hu_HU', type: 'article', url, title, description },
-    twitter: { card: 'summary_large_image', title, description, images: [`${url}/opengraph-image`] },
+    openGraph: {
+      siteName: SITE_NAME,
+      locale: 'hu_HU',
+      type: 'article',
+      url,
+      title,
+      description,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${url}/opengraph-image`],
+    },
   };
 }
 

@@ -1,6 +1,7 @@
 import { defineField, defineType } from 'sanity';
 
 import { createPrefilledInput } from '@/sanity/schemaTypes/components/PrefilledInput';
+import { SITE_NAME } from '@/lib/constants';
 
 export const homePage = defineType({
   name: 'homePage',
@@ -59,10 +60,7 @@ export const homePage = defineType({
       type: 'string',
       group: 'seo',
       components: {
-        input: createPrefilledInput(
-          'headline',
-          (v) => `${v} • Green Point Beauty`,
-        ),
+        input: createPrefilledInput('headline', (v) => `${v} • ${SITE_NAME}`),
       },
     }),
     defineField({

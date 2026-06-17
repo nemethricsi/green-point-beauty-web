@@ -15,26 +15,29 @@ import {
   fetchNavigation,
   fetchTreatments,
 } from '@/sanity/lib/queries';
+import { SITE_NAME } from '@/lib/constants';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data } = await fetchHomePage();
-  const title = data?.seoTitle ?? (data?.headline ? `${data.headline} • Green Point Beauty` : undefined);
+  const title =
+    data?.seoTitle ??
+    (data?.headline ? `${SITE_NAME} • ${data.headline}` : undefined);
   const description = data?.seoDescription ?? data?.subheading ?? undefined;
   return {
     title: title ? { absolute: title } : undefined,
     description,
     alternates: { canonical: '/' },
     openGraph: {
-      siteName: 'Green Point Beauty',
+      siteName: SITE_NAME,
       locale: 'hu_HU',
       type: 'website',
       url: '/',
-      title: title ?? 'Green Point Beauty',
+      title: title ?? SITE_NAME,
       description,
     },
     twitter: {
       card: 'summary_large_image',
-      title: title ?? 'Green Point Beauty',
+      title: title ?? SITE_NAME,
       description,
     },
   };
@@ -98,9 +101,7 @@ export default async function Home() {
               <div className="bg-fuego-700/25 h-px w-full md:my-6" />
               <div className="flex flex-col gap-6">
                 <div className="text-fuego-900 flex flex-col gap-3 text-sm font-medium md:text-base">
-                  <strong className="font-serif text-xl">
-                    Green Point Beauty
-                  </strong>
+                  <strong className="font-serif text-xl">{SITE_NAME}</strong>
                   <span className="text-fuego-900/75">
                     📍 1066 Budapest, Zichy Jenő u. 1. Fsz. 2. (kapucsengő: 101)
                   </span>

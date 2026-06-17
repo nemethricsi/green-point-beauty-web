@@ -1,9 +1,10 @@
+import { SITE_NAME } from '@/lib/constants';
 import type { StructureResolver } from 'sanity/structure';
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Green Point Beauty')
+    .title(SITE_NAME)
     .items([
       S.divider().title('Egyedi tartalmak'),
       S.listItem()

@@ -2,8 +2,9 @@ import { ImageResponse } from 'next/og';
 
 import { urlFor } from '@/sanity/lib/image';
 import { fetchHomePage, fetchTreatmentBySlug } from '@/sanity/lib/queries';
+import { SITE_NAME } from '@/lib/constants';
 
-export const alt = 'Green Point Beauty';
+export const alt = SITE_NAME;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -46,7 +47,7 @@ export default async function Image({
             alt=""
           />
         ) : (
-          <span>Green Point Beauty</span>
+          <span>{SITE_NAME}</span>
         )}
       </div>
     ),

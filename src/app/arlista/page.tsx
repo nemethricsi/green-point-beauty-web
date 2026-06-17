@@ -1,22 +1,31 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowUpRightIcon } from 'lucide-react';
 
 import { BackgroundShapes } from '@/app/components/BackgroundShapes';
-
-export const metadata: Metadata = {
-  title: 'Árlista',
-  description: 'TODO: price list description',
-  alternates: { canonical: '/arlista' },
-  openGraph: { siteName: 'Green Point Beauty', locale: 'hu_HU', type: 'website', url: '/arlista', title: 'Árlista' },
-  twitter: { card: 'summary_large_image', title: 'Árlista', images: ['/opengraph-image'] },
-};
 import { Container } from '@/app/components/Container';
 import { Footer } from '@/app/components/Footer';
 import { Header } from '@/app/components/Header';
-import { ArrowUpRightIcon } from 'lucide-react';
-
 import { cn, formatPrice } from '@/lib/utils';
 import { fetchNavigation, fetchPricingPage } from '@/sanity/lib/queries';
+import { SITE_NAME } from '@/lib/constants';
+
+export const metadata: Metadata = {
+  title: 'Árlista',
+  alternates: { canonical: '/arlista' },
+  openGraph: {
+    siteName: SITE_NAME,
+    locale: 'hu_HU',
+    type: 'website',
+    url: '/arlista',
+    title: 'Árlista',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Árlista',
+    images: ['/opengraph-image'],
+  },
+};
 
 export default async function PriceListPage() {
   const { data: navigation } = await fetchNavigation();
