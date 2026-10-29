@@ -116,7 +116,17 @@ export default async function KezelesPage({ params }: Props) {
                   <ArrowRightIcon className="-rotate-45 transition-transform group-hover:-rotate-45 group-focus:-rotate-45 group-active:translate-x-0.5 lg:rotate-0" />
                 </Link>
               </div>
-              <div className="prose lg:prose-lg">
+              <div
+                className={cn(
+                  'prose lg:prose-lg',
+                  // H2 to match H3 styles from @tailwindcss/typography, We want smaller styles
+                  'prose-h2:text-[1.25em] prose-h2:leading-[1.6] prose-h2:mt-[1.6em] prose-h2:mb-[0.6em] prose-h2:font-semibold',
+                  'lg:prose-h2:text-[1.333em] lg:prose-h2:leading-normal lg:prose-h2:mt-[1.667em] lg:prose-h2:mb-[0.667em]',
+                  // H3 to match H4
+                  'prose-h3:text-[1em] prose-h3:leading-normal prose-h3:mt-[1.5em] prose-h3:mb-[0.5em]',
+                  'lg:prose-h3:leading-[1.556] lg:prose-h3:mt-[1.778em] lg:prose-h3:mb-[0.444em]',
+                )}
+              >
                 <PortableText value={details} components={components} />
               </div>
             </div>
