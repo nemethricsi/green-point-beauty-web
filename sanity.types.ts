@@ -136,15 +136,7 @@ export type Treatment = {
           _type: 'span';
           _key: string;
         }>;
-        style?:
-          | 'normal'
-          | 'h1'
-          | 'h2'
-          | 'h3'
-          | 'h4'
-          | 'h5'
-          | 'h6'
-          | 'blockquote';
+        style?: 'normal' | 'h2' | 'h3' | 'h4' | 'blockquote';
         listItem?: 'bullet' | 'number';
         markDefs?: Array<{
           href?: string;
@@ -217,6 +209,8 @@ export type HomePage = {
     _type: 'image';
   };
   ctaLabel?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   defaultOgImage?: {
     asset?: {
       _ref: string;
@@ -405,7 +399,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == 'homePage'][0]{  headline,  subheading,  image,  ctaLabel,  defaultOgImage,}
+// Query: *[_type == 'homePage'][0]{  headline,  subheading,  image,  ctaLabel,  defaultOgImage,  seoTitle,  seoDescription,}
 export type HOME_PAGE_QUERYResult = {
   headline: string | null;
   subheading: string | null;
@@ -435,6 +429,8 @@ export type HOME_PAGE_QUERYResult = {
     crop?: SanityImageCrop;
     _type: 'image';
   } | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
 } | null;
 // Variable: TREATMENTS_QUERY
 // Query: *[  _type == 'treatment']{  "id":_id,  name,  "slug":slug.current,  shortDescription,  bookingUrl,  mainImage}
@@ -473,15 +469,7 @@ export type SINGLE_TREATMENT_QUERYResult = {
           _type: 'span';
           _key: string;
         }>;
-        style?:
-          | 'blockquote'
-          | 'h1'
-          | 'h2'
-          | 'h3'
-          | 'h4'
-          | 'h5'
-          | 'h6'
-          | 'normal';
+        style?: 'blockquote' | 'h2' | 'h3' | 'h4' | 'normal';
         listItem?: 'bullet' | 'number';
         markDefs?: Array<{
           href?: string;
@@ -787,7 +775,7 @@ export type NAVIGATION_QUERYResult = {
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n  defaultOgImage,\n}": HOME_PAGE_QUERYResult;
+    "*[_type == 'homePage'][0]{\n  headline,\n  subheading,\n  image,\n  ctaLabel,\n  defaultOgImage,\n  seoTitle,\n  seoDescription,\n}": HOME_PAGE_QUERYResult;
     '*[\n  _type == \'treatment\'\n]{\n  "id":_id,\n  name,\n  "slug":slug.current,\n  shortDescription,\n  bookingUrl,\n  mainImage\n}': TREATMENTS_QUERYResult;
     '*[\n  _type == \'treatment\' &&\n  slug.current == $slug\n][0]{\n  "id":_id,\n  name,\n  shortDescription,\n  bookingUrl,\n  details,\n  variants[] {\n    _key,\n    label,\n    duration,\n    price\n  },\n  seoTitle,\n  seoDescription,\n  seoImage\n}': SINGLE_TREATMENT_QUERYResult;
     '*[_type == "treatmentCategory"] | order(name asc) {\n  "id": _id,\n  name,\n  "treatments": *[_type == "treatment" && references(^._id)] | order(name asc) {\n    "id": _id,\n    name,\n    slug,\n    bookingUrl,\n    variants[] {\n      _key,\n      label,\n      duration,\n      price\n    }\n  }\n}': PRICING_PAGE_QUERYResult;

@@ -2,6 +2,8 @@ import { defineType, defineField, defineArrayMember } from 'sanity';
 
 import { createPrefilledInput } from '@/sanity/schemaTypes/components/PrefilledInput';
 import { createSlugWithUrlInput } from '@/sanity/schemaTypes/components/SlugWithUrl';
+import { EditorH2 } from '@/sanity/components/EditorH2';
+import { EditorH3 } from '@/sanity/components/EditorH3';
 
 export const treatmentType = defineType({
   name: 'treatment',
@@ -128,7 +130,18 @@ export const treatmentType = defineType({
       name: 'details',
       type: 'array',
       title: 'Részletes leírás',
-      of: [{ type: 'block' }, { type: 'image', options: { hotspot: true } }],
+      of: [
+        {
+          type: 'block',
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'Heading 2', value: 'h2', component: EditorH2 },
+            { title: 'Heading 3', value: 'h3', component: EditorH3 },
+            { title: 'Quote', value: 'blockquote' },
+          ],
+        },
+        { type: 'image', options: { hotspot: true } },
+      ],
       validation: (Rule) => Rule.required(),
       group: 'content',
     }),
