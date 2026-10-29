@@ -51,6 +51,7 @@ export const treatmentType = defineType({
       options: {
         hotspot: true,
       },
+      validation: (Rule) => Rule.required(),
       fields: [
         defineField({
           name: 'alt',

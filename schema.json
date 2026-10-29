@@ -841,10 +841,6 @@
                         },
                         {
                           "type": "string",
-                          "value": "h4"
-                        },
-                        {
-                          "type": "string",
                           "value": "blockquote"
                         }
                       ]
