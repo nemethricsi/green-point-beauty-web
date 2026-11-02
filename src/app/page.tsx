@@ -99,7 +99,7 @@ export default async function Home() {
                 />
               </div>
               <div className="bg-fuego-700/25 h-px w-full md:my-6" />
-              <div className="flex flex-col gap-6">
+              <div id="contact" className="flex flex-col gap-6">
                 <div className="text-fuego-900 flex flex-col gap-4 text-sm font-medium md:text-base">
                   <strong className="font-serif text-xl">{SITE_NAME}</strong>
                   <span className="text-fuego-900/75">
