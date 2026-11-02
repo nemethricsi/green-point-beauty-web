@@ -99,18 +99,32 @@ export default async function Home() {
                 />
               </div>
               <div className="bg-fuego-700/25 h-px w-full md:my-6" />
-              <div className="flex flex-col gap-6">
-                <div className="text-fuego-900 flex flex-col gap-3 text-sm font-medium md:text-base">
+              <div id="contact" className="flex scroll-mt-20 flex-col gap-6">
+                <div className="text-fuego-900 flex flex-col gap-4 text-sm font-medium md:text-base">
                   <strong className="font-serif text-xl">{SITE_NAME}</strong>
                   <span className="text-fuego-900/75">
                     📍 1066 Budapest, Zichy Jenő u. 1. Fsz. 2. (kapucsengő: 101)
                   </span>
-                  <a
-                    className="text-fuego-900/75 underline underline-offset-4"
-                    href="tel:+36304200933"
-                  >
-                    📞 +36 30 420 0933
-                  </a>
+                  <div className="text-fuego-900 my-4 flex flex-col gap-6 text-sm font-medium md:flex-row md:items-center md:text-base">
+                    <div>
+                      <p>Szilágyi Eszter</p>
+                      <a
+                        className="text-fuego-900/75 underline underline-offset-4"
+                        href="tel:+36304200933"
+                      >
+                        📞 +36 30 420 0933
+                      </a>
+                    </div>
+                    <div>
+                      <p>Komárominé M. Nagy Lili</p>
+                      <a
+                        className="text-fuego-900/75 underline underline-offset-4"
+                        href="tel:+36304200933"
+                      >
+                        📞 +36 20 428 7254
+                      </a>
+                    </div>
+                  </div>
                 </div>
                 <div className="border-fuego-700/25 max-w-xl rounded-lg border">
                   <iframe
