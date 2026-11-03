@@ -3,7 +3,7 @@ import { Geist_Mono, Bricolage_Grotesque, Inter } from 'next/font/google';
 
 import { Providers } from '@/app/components/Providers';
 import { SanityLive } from '@/sanity/lib/live';
-import { SITE_NAME } from '@/lib/constants';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 
 import '@/app/globals.css';
 
@@ -24,11 +24,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s | ${SITE_NAME}`,
+    template: `%s • ${SITE_NAME}`,
     default: SITE_NAME,
   },
   description: 'Beauty, cosmetic & personal care',
-  metadataBase: new URL('https://green-point-beauty.vercel.app/'),
+  metadataBase: new URL(SITE_URL),
   alternates: { canonical: '/' },
   openGraph: {
     siteName: SITE_NAME,

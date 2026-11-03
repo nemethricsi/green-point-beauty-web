@@ -4,7 +4,7 @@ import { type IconType } from 'react-icons';
 import { SiFacebook, SiGmail, SiInstagram } from 'react-icons/si';
 
 import { Container } from '@/app/components/Container';
-import { SITE_NAME } from '@/lib/constants';
+import { SITE_NAME, SUPPORT_EMAIL } from '@/lib/constants';
 
 export const Footer = () => {
   return (
@@ -19,7 +19,7 @@ export const Footer = () => {
             href="https://www.instagram.com/green.point.beauty.salon"
             icon={SiInstagram}
           />
-          <SocialLink href="mailto:info@greenpoint.hu" icon={SiGmail} />
+          <SocialLink href={`mailto:${SUPPORT_EMAIL}`} icon={SiGmail} />
         </div>
         <div className="border-fuego-800 text-fuego-100 mt-2.5 border-t pt-5 lg:border-t-0 lg:pt-0">
           <p className="font-medium">

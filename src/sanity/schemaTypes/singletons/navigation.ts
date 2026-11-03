@@ -1,3 +1,4 @@
+import { SITE_URL } from '@/lib/constants';
 import { defineType, defineField, defineArrayMember } from 'sanity';
 
 export const navigation = defineType({
@@ -80,7 +81,7 @@ export const navigation = defineType({
               name: 'externalLink',
               title: 'Külső hivatkozás',
               type: 'url',
-              description: 'Teljes URL https-el, pl. https://www.greenpoint.hu',
+              description: `Teljes URL https-el, pl. ${SITE_URL}`,
               hidden: ({ parent }) => parent?.linkType !== 'external',
               validation: (Rule) =>
                 Rule.custom((value, context) => {
